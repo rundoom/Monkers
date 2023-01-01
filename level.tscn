@@ -1,0 +1,178 @@
+[gd_scene load_steps=9 format=3 uid="uid://buwehtob1p2rt"]
+
+[ext_resource type="Texture2D" uid="uid://baq17yfmbu002" path="res://fantasyhextiles_v3_borderless.png" id="1_icibe"]
+[ext_resource type="PackedScene" uid="uid://1pyxcm6gk0hm" path="res://test_hex_obj.tscn" id="2_ss8ak"]
+[ext_resource type="Script" path="res://level.gd" id="3_6w8ba"]
+[ext_resource type="Script" path="res://GridDebug.gd" id="4_sewjx"]
+[ext_resource type="Script" path="res://AstarDebug.gd" id="5_th2fx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eu47c"]
+resource_name = "Floor"
+texture = ExtResource("1_icibe")
+texture_region_size = Vector2i(32, 64)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/modulate = Color(1, 1, 1, 0.501961)
+1:0/next_alternative_id = 2
+1:0/0 = 0
+1:0/1 = 1
+1:0/1/modulate = Color(1, 1, 1, 0.501961)
+3:0/next_alternative_id = 3
+3:0/0 = 0
+3:0/0/texture_offset = Vector2i(30, 0)
+3:0/2 = 2
+3:0/2/modulate = Color(1, 1, 1, 0.501961)
+4:0/next_alternative_id = 4
+4:0/0 = 0
+4:0/0/texture_offset = Vector2i(30, 0)
+4:0/3 = 3
+4:0/3/modulate = Color(1, 1, 1, 0.501961)
+0:1/next_alternative_id = 2
+0:1/0 = 0
+0:1/1 = 1
+0:1/1/modulate = Color(1, 1, 1, 0.501961)
+1:1/next_alternative_id = 2
+1:1/0 = 0
+1:1/1 = 1
+1:1/1/modulate = Color(1, 1, 1, 0.501961)
+2:1/next_alternative_id = 2
+2:1/0 = 0
+2:1/1 = 1
+2:1/1/modulate = Color(1, 1, 1, 0.501961)
+3:1/next_alternative_id = 2
+3:1/0 = 0
+3:1/1 = 1
+3:1/1/modulate = Color(1, 1, 1, 0.501961)
+4:1/next_alternative_id = 2
+4:1/0 = 0
+4:1/1 = 1
+4:1/1/modulate = Color(1, 1, 1, 0.501961)
+5:1/next_alternative_id = 2
+5:1/0 = 0
+5:1/1 = 1
+5:1/1/modulate = Color(1, 1, 1, 0.501961)
+6:1/next_alternative_id = 2
+6:1/0 = 0
+6:1/1 = 1
+6:1/1/modulate = Color(1, 1, 1, 0.501961)
+0:2/next_alternative_id = 2
+0:2/0 = 0
+0:2/1 = 1
+0:2/1/modulate = Color(1, 1, 1, 0.501961)
+1:2/next_alternative_id = 2
+1:2/0 = 0
+1:2/1 = 1
+1:2/1/modulate = Color(1, 1, 1, 0.501961)
+2:2/next_alternative_id = 2
+2:2/0 = 0
+2:2/1 = 1
+2:2/1/modulate = Color(1, 1, 1, 0.501961)
+3:2/next_alternative_id = 2
+3:2/0 = 0
+3:2/1 = 1
+3:2/1/modulate = Color(1, 1, 1, 0.501961)
+4:2/next_alternative_id = 2
+4:2/0 = 0
+4:2/1 = 1
+4:2/1/modulate = Color(1, 1, 1, 0.501961)
+6:2/next_alternative_id = 2
+6:2/0 = 0
+6:2/1 = 1
+6:2/1/modulate = Color(1, 1, 1, 0.501961)
+0:3/next_alternative_id = 2
+0:3/0 = 0
+0:3/1 = 1
+0:3/1/modulate = Color(1, 1, 1, 0.501961)
+1:3/next_alternative_id = 2
+1:3/0 = 0
+1:3/1 = 1
+1:3/1/modulate = Color(1, 1, 1, 0.501961)
+2:3/next_alternative_id = 2
+2:3/0 = 0
+2:3/1 = 1
+2:3/1/modulate = Color(1, 1, 1, 0.501961)
+3:3/next_alternative_id = 2
+3:3/0 = 0
+3:3/1 = 1
+3:3/1/modulate = Color(1, 1, 1, 0.501961)
+4:3/next_alternative_id = 2
+4:3/0 = 0
+4:3/1 = 1
+4:3/1/modulate = Color(1, 1, 1, 0.501961)
+5:3/next_alternative_id = 2
+5:3/0 = 0
+5:3/1 = 1
+5:3/1/modulate = Color(1, 1, 1, 0.501961)
+6:3/next_alternative_id = 2
+6:3/0 = 0
+6:3/1 = 1
+6:3/1/modulate = Color(1, 1, 1, 0.501961)
+5:0/next_alternative_id = 3
+5:0/0 = 0
+5:0/0/texture_offset = Vector2i(30, 0)
+5:0/2 = 2
+5:0/2/modulate = Color(1, 1, 1, 0.501961)
+6:0/next_alternative_id = 3
+6:0/0 = 0
+6:0/2 = 2
+6:0/2/modulate = Color(1, 1, 1, 0.501961)
+5:2/next_alternative_id = 2
+5:2/0 = 0
+5:2/1 = 1
+5:2/1/modulate = Color(1, 1, 1, 0.501961)
+2:0/next_alternative_id = 2
+2:0/0 = 0
+2:0/1 = 1
+2:0/1/modulate = Color(1, 1, 1, 0.501961)
+7:0/0 = 0
+7:1/0 = 0
+7:2/0 = 0
+7:3/0 = 0
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_gr075"]
+resource_name = "Chars"
+scenes/1/scene = ExtResource("2_ss8ak")
+
+[sub_resource type="TileSet" id="TileSet_rcybs"]
+tile_shape = 3
+tile_layout = 4
+tile_offset_axis = 1
+tile_size = Vector2i(32, 28)
+sources/1 = SubResource("TileSetAtlasSource_eu47c")
+sources/2 = SubResource("TileSetScenesCollectionSource_gr075")
+
+[node name="Level" type="TileMap" groups=["grid"]]
+texture_filter = 1
+tile_set = SubResource("TileSet_rcybs")
+cell_quadrant_size = 32
+format = 2
+layer_0/name = "floor"
+layer_0/tile_data = PackedInt32Array(1703929, 65537, 0, 1769465, 65537, 0, 1835001, 65537, 0, 1572858, 65537, 0, 1638394, 65537, 0, 1703930, 65537, 0, 1769466, 65537, 0, 1835002, 65537, 0, 1900538, 65537, 0, 1966074, 65537, 0, 1507323, 65537, 0, 1966075, 65537, 0, 2031611, 65537, 0, 2097147, 65537, 0, 2162683, 65537, 0, 1441788, 65537, 0, 2162684, 65537, 0, 2228220, 65537, 0, 1376253, 65537, 0, 2228221, 65537, 0, 2293757, 65537, 0, 1310718, 65537, 0, 2293758, 65537, 0, 2359294, 65537, 0, 1245183, 65537, 0, 2359295, 65537, 0, 2424831, 65537, 0, 1114112, 65537, 0, 2359296, 65537, 0, 2424832, 65537, 0, 1114113, 65537, 0, 2424833, 65537, 0, 2490369, 65537, 0, 1048578, 65537, 0, 2490370, 65537, 0, 1048579, 65537, 0, 1376259, 1, 0, 1441795, 1, 0, 1507331, 1, 0, 2490371, 65537, 0, 1048580, 65537, 0, 1310724, 1, 0, 1376260, 1, 0, 1441796, 1, 0, 1507332, 1, 0, 2490372, 65537, 0, 1048581, 65537, 0, 1310725, 1, 0, 1376261, 1, 0, 1441797, 1, 0, 1703941, 1, 0, 1769477, 1, 0, 1835013, 1, 0, 1900549, 1, 0, 2490373, 65537, 0, 1048582, 65537, 0, 1114118, 65537, 0, 1179654, 65537, 0, 1245190, 1, 0, 1310726, 1, 0, 1376262, 1, 0, 1638406, 1, 0, 1703942, 1, 0, 1769478, 1, 0, 1835014, 1, 0, 1900550, 1, 0, 1966086, 1, 0, 2424838, 65537, 0, 1310727, 1, 0, 1572871, 1, 0, 1638407, 1, 0, 1703943, 1, 0, 1769479, 1, 0, 1835015, 1, 0, 1900551, 1, 0, 1966087, 1, 0, 2031623, 1, 0, 2359303, 65537, 0, 1507336, 1, 0, 1572872, 1, 0, 1638408, 1, 0, 1703944, 1, 0, 1769480, 1, 0, 1835016, 1, 0, 1900552, 1, 0, 1966088, 1, 0, 2293768, 65537, 0, 1507337, 1, 0, 1572873, 1, 0, 1638409, 1, 0, 1769481, 1, 0, 1835017, 1, 0, 1900553, 1, 0, 1966089, 1, 0, 2228233, 65537, 0, 1441802, 1, 0, 1507338, 1, 0, 1572874, 1, 0, 1638410, 1, 0, 1703946, 1, 0, 1769482, 1, 0, 1835018, 1, 0, 1900554, 1, 0, 1966090, 1, 0, 2162698, 65537, 0, 1441803, 1, 0, 1507339, 1, 0, 1572875, 1, 0, 1638411, 1, 0, 1703947, 1, 0, 1769483, 1, 0, 1835019, 1, 0, 1966091, 1, 0, 2031627, 65537, 0, 2097163, 65537, 0, 1376268, 1, 0, 1441804, 1, 0, 1507340, 1, 0, 1572876, 1, 0, 1638412, 1, 0, 1703948, 1, 0, 1769484, 1, 0, 1966092, 1, 0, 2162700, 393217, 0, 2228236, 393217, 0, 2293772, 393217, 0, 1441805, 1, 0, 1507341, 1, 0, 1572877, 1, 0, 1638413, 1, 0, 1966093, 1, 0, 2097165, 393217, 0, 2162701, 393217, 0, 2293773, 393217, 0, 2359309, 393217, 0, 1966094, 1, 0, 2031630, 1, 0, 2097166, 393217, 0, 2162702, 393217, 0, 2228238, 393217, 0, 2293774, 393217, 0, 1966095, 1, 0, 2097167, 393217, 0, 2162703, 393217, 0, 2228239, 393217, 0, 2293775, 393217, 0, 1966096, 1, 0, 1966097, 1, 0, 1966098, 1, 0)
+layer_1/name = "objects"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("3_6w8ba")
+
+[node name="GridDebug" type="Label" parent="."]
+offset_top = -23.0
+offset_right = 78.0
+offset_bottom = 23.0
+pivot_offset = Vector2(0, 23)
+horizontal_alignment = 2
+vertical_alignment = 3
+script = ExtResource("4_sewjx")
+
+[node name="AstarDebug" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_th2fx")
+
+[node name="TestHexObj" parent="." instance=ExtResource("2_ss8ak")]
+position = Vector2(633.149, 238.582)

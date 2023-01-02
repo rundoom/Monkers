@@ -17,4 +17,8 @@ default_color = Color(0.368627, 0.478431, 1, 1)
 
 [node name="TargetPos" parent="." instance=ExtResource("2_wnljt")]
 
+[node name="StepTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+
 [connection signal="positioned" from="TargetPos" to="." method="_on_target_pos_positioned"]

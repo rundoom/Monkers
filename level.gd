@@ -10,7 +10,6 @@ const EMPTY_CELL = Vector2i(-1, -1)
 func _ready() -> void:
 	used_cell_positions = get_used_cells(0)
 	update()
-	print(used_cell_positions)
 	
 
 func update() -> void:

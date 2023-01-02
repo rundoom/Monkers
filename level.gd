@@ -4,7 +4,13 @@ class_name Grid
 
 var astar := AStar2D.new()
 var used_cell_positions: Array[Vector2i]
-const EMPTY_CELL = Vector2i(-1, -1)
+
+
+class TileType:
+	const EMPTY_CELL = Vector2i(-1, -1)
+	const WATER = Vector2i(6, 0)
+	const GRASS = Vector2i(0, 0)
+	const FOREST = Vector2i(2, 0)
 
 
 func _ready() -> void:
@@ -19,7 +25,9 @@ func update() -> void:
 func create_pathfinding_points() -> void:
 	astar.clear()
 	for cell_position in used_cell_positions:
-		astar.add_point(calc_coord_id(cell_position), cell_position)
+		var weight = get_cell_tile_data(0, cell_position).custom_data_0
+		
+		if weight > 0: astar.add_point(calc_coord_id(cell_position), cell_position, weight)
 	for cell_position in used_cell_positions:
 		connect_cardinals(cell_position)
 
@@ -41,10 +49,13 @@ func _physics_process(delta: float) -> void:
 
 
 func connect_cardinals(point_position) -> void:
-	var surroundings := get_surrounding_cells(point_position)
 	var center := calc_coord_id(point_position)
+	if !astar.has_point(center): return
+	
+	var surroundings := get_surrounding_cells(point_position)
 	for surrounding in surroundings:
-		if get_cell_atlas_coords(0, surrounding) == EMPTY_CELL: continue
+		var surrounding_coord = calc_coord_id(surrounding)
+		if !astar.has_point(surrounding_coord): continue
 		astar.connect_points(center, calc_coord_id(surrounding), true)
 
 

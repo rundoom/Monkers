@@ -8,10 +8,10 @@
 script = ExtResource("1_dlcs4")
 
 [node name="ObjVisual" type="Polygon2D" parent="."]
-top_level = true
+scale = Vector2(0.408, 0.408)
 color = Color(1, 0.8, 1, 1)
 offset = Vector2(-87, -31)
-polygon = PackedVector2Array(62, 17, 88, 2, 113, 17, 113, 47, 90, 61, 62, 46)
+polygon = PackedVector2Array(62, 17, 87, 2, 113, 17, 113, 47, 90, 61, 62, 46)
 script = ExtResource("2_gmyu1")
 
 [node name="Movement" type="Line2D" parent="."]

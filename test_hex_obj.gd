@@ -28,7 +28,7 @@ func _on_target_pos_positioned(grid_position_target) -> void:
 
 func mark_distance():
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
-	grid.make_marking(grid_pos, 23)
+	grid.make_marking(grid_pos, 25)
 
 
 func _on_step_timer_timeout() -> void:

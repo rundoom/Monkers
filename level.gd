@@ -30,8 +30,9 @@ func create_pathfinding_points() -> void:
 		var weight = get_cell_tile_data(0, cell_position).custom_data_0
 		
 		if weight > 0:
-			cells_map[cell_position] = calc_coord_id(cell_position)
-			astar.add_point(cells_map[cell_position], cell_position, weight)
+			var point_id = astar.get_available_point_id()
+			cells_map[cell_position] = point_id
+			astar.add_point(point_id, cell_position, weight)
 		
 	for cell_position in used_cell_positions:
 		connect_cardinals(cell_position)
@@ -74,9 +75,8 @@ func mark_move(point: Vector2i, distance: int) -> Dictionary:
 	while points_to_visit.size() > 0:
 		var current_point = points_to_visit.pop_front()
 		for surround in get_surrounding_cells(current_point):
-			if get_cell_atlas_coords(0, surround) == TileType.EMPTY_CELL: continue
-			var cost = get_cell_tile_data(0, surround).custom_data_0
-			if cost < 0: continue
+			if !cells_map.has(surround): continue
+			var cost = astar.get_point_weight_scale(cells_map[surround])
 			
 			var current_cost = cost_so_far[current_point]
 			var new_cost = cost + current_cost
@@ -91,6 +91,7 @@ func mark_move(point: Vector2i, distance: int) -> Dictionary:
 					visited_points[surround] = current_point
 	return visited_points
 
+
 func connect_cardinals(point_position) -> void:
 	var center = cells_map.get(point_position)
 	if center == null: return
@@ -100,11 +101,3 @@ func connect_cardinals(point_position) -> void:
 		var surrounding_coord = cells_map.get(surrounding)
 		if surrounding_coord == null: continue
 		astar.connect_points(center, cells_map[surrounding], true)
-
-
-func calc_coord_id(point: Vector2i) -> int:
-	var x = point.x
-	var y = point.y
-	var a = 2 * x if x >= 0 else (-2 * x) - 1
-	var b = 2 * y if y >= 0 else (-2 * y) - 1
-	return a * a + a + b if a >= b else (b * b + a)

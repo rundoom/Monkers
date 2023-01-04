@@ -34,6 +34,10 @@ window/size/viewport_height=1080
 
 movie_writer/movie_file="C:/Users/d_b_o/OneDrive/Документы/GodotProjects/Monkers/out/footage/footage.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/script-name-on-top/plugin.cfg")
+
 [input]
 
 LMB={

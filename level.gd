@@ -3,7 +3,7 @@ class_name Grid
 
 
 var astar := AStar2D.new()
-var used_cell_positions: Array[Vector2i]
+var cells_map := {}
 var TilePainter := preload("res://grid_painter.tscn")
 
 
@@ -15,7 +15,6 @@ class TileType:
 
 
 func _ready() -> void:
-	used_cell_positions = get_used_cells(0)
 	update()
 	
 
@@ -25,10 +24,15 @@ func update() -> void:
 	
 func create_pathfinding_points() -> void:
 	astar.clear()
+	var used_cell_positions = get_used_cells(0)
+	
 	for cell_position in used_cell_positions:
 		var weight = get_cell_tile_data(0, cell_position).custom_data_0
 		
-		if weight > 0: astar.add_point(calc_coord_id(cell_position), cell_position, weight)
+		if weight > 0:
+			cells_map[cell_position] = calc_coord_id(cell_position)
+			astar.add_point(cells_map[cell_position], cell_position, weight)
+		
 	for cell_position in used_cell_positions:
 		connect_cardinals(cell_position)
 
@@ -52,31 +56,14 @@ func _physics_process(delta: float) -> void:
 func make_marking(point: Vector2i, distance: int = 1):
 	get_tree().call_group("tile_painter", "queue_free")
 #	mark_move(point, distance, [point], PackedVector2Array())
-	var avaliable_points = mark_move1(point, distance)
+	var avaliable_points = mark_move(point, distance)
 	for it in avaliable_points:
 		var tile_painter = TilePainter.instantiate() as Polygon2D
 		tile_painter.position = map_to_local(it)
 		add_child(tile_painter)
 
-
-func mark_move(point: Vector2i, distance, marked_tiles: PackedVector2Array, processed_tiles: PackedVector2Array) -> PackedVector2Array:
-	if distance == 0: return marked_tiles
 	
-	processed_tiles.append(point)
-	var surround = get_surrounding_cells(point)
-	for it in surround:
-		if !marked_tiles.has(it):
-			var tile_painter = TilePainter.instantiate() as Polygon2D
-			tile_painter.position = map_to_local(it)
-			add_child(tile_painter)
-			marked_tiles.append(it)
-		
-		if !processed_tiles.has(it):
-			mark_move(it, distance - 1, marked_tiles, processed_tiles)
-	
-	return marked_tiles
-	
-func mark_move1(point: Vector2i, distance: int) -> Dictionary:
+func mark_move(point: Vector2i, distance: int) -> Dictionary:
 	var visited_points := {}
 	var cost_so_far := {}
 	var points_to_visit := [] as Array[Vector2i]
@@ -105,14 +92,14 @@ func mark_move1(point: Vector2i, distance: int) -> Dictionary:
 	return visited_points
 
 func connect_cardinals(point_position) -> void:
-	var center := calc_coord_id(point_position)
-	if !astar.has_point(center): return
+	var center = cells_map.get(point_position)
+	if center == null: return
 	
 	var surroundings := get_surrounding_cells(point_position)
 	for surrounding in surroundings:
-		var surrounding_coord = calc_coord_id(surrounding)
-		if !astar.has_point(surrounding_coord): continue
-		astar.connect_points(center, calc_coord_id(surrounding), true)
+		var surrounding_coord = cells_map.get(surrounding)
+		if surrounding_coord == null: continue
+		astar.connect_points(center, cells_map[surrounding], true)
 
 
 func calc_coord_id(point: Vector2i) -> int:

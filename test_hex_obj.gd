@@ -4,7 +4,9 @@ extends Node2D
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
 @onready var astar = grid.astar as AStar2D
 var current_path: Array[Vector2i]
-var move_points = 4
+var able_to_move: PackedVector2Array
+var max_move_points = 10
+var current_move_points = max_move_points
 
 
 func _ready() -> void:
@@ -15,9 +17,9 @@ func _ready() -> void:
 
 func _on_target_pos_positioned(grid_position_target) -> void:
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
-	var grid_id = grid.calc_coord_id(grid_pos)
+	var grid_id = grid.cells_map[grid_pos]
 
-	current_path = Array(astar.get_point_path(grid_id, grid.calc_coord_id(grid_position_target)))
+	current_path = Array(astar.get_point_path(grid_id, grid.cells_map[grid_position_target]))
 
 	if !current_path.is_empty():
 		_on_step_timer_timeout()
@@ -26,7 +28,7 @@ func _on_target_pos_positioned(grid_position_target) -> void:
 
 func mark_distance():
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
-	grid.make_marking(grid_pos, 6)
+	grid.make_marking(grid_pos, 23)
 
 
 func _on_step_timer_timeout() -> void:

@@ -113,6 +113,8 @@ func mark_move(point: Vector2i, distance: int) -> Dictionary:
 				elif cost_so_far[surround] > new_cost:
 					cost_so_far[surround] = new_cost
 					visited_points[surround] = current_point
+	
+	visited_points.erase(point)
 	return visited_points
 
 

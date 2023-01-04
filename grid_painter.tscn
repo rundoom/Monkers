@@ -2,11 +2,11 @@
 
 [ext_resource type="Shader" path="res://grid_painter.gdshader" id="1_gaxs1"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fji4b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqy8s"]
 resource_local_to_scene = true
 shader = ExtResource("1_gaxs1")
 shader_parameter/filter_color = Color(0.862745, 0, 0.305882, 0.345098)
 
 [node name="GridPainter" type="Polygon2D" groups=["tile_painter"]]
-material = SubResource("ShaderMaterial_fji4b")
+material = SubResource("ShaderMaterial_sqy8s")
 polygon = PackedVector2Array(-8, -14, 8, -14, 18, 0, 8, 16, -8, 16, -19, 0)

@@ -5,6 +5,8 @@ class_name Grid
 var astar := AStar2D.new()
 var cells_map := {}
 var TilePainter := preload("res://grid_painter.tscn")
+var pool_marked : Array[Node2D] = []
+var marked_in_use = 0
 
 
 class TileType:
@@ -15,6 +17,7 @@ class TileType:
 
 
 func _ready() -> void:
+	prepare_marked()
 	update()
 	
 
@@ -51,17 +54,38 @@ func _physics_process(delta: float) -> void:
 	var cell_pos = local_to_map(get_local_mouse_position())
 	var cell_atlas = get_cell_atlas_coords(0, cell_pos)
 	$GridDebug.text = str(cell_atlas)
-#	set_cell(0, cell_pos, 1, cell_atlas, 1)
 
 
-func make_marking(point: Vector2i, distance: int = 1):
-	get_tree().call_group("tile_painter", "queue_free")
-#	mark_move(point, distance, [point], PackedVector2Array())
+func make_marking(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
 	var avaliable_points = mark_move(point, distance)
-	for it in avaliable_points:
+	clear_marked()
+	for it in avaliable_points: mark(it)
+	
+	return avaliable_points.keys()
+
+
+func prepare_marked() -> void:
+	for i in 1024:
 		var tile_painter = TilePainter.instantiate() as Polygon2D
-		tile_painter.position = map_to_local(it)
+		tile_painter.visible = false
+		pool_marked.append(tile_painter)
 		add_child(tile_painter)
+	
+	
+func clear_marked() -> void:
+	for marked in pool_marked:
+		marked.visible = false
+	marked_in_use = 0
+  
+
+func mark(pos: Vector2i):
+	if marked_in_use >= pool_marked.size():
+		var new_marker = TilePainter.instantiate() as Polygon2D
+		pool_marked.append(new_marker)
+		add_child(new_marker)
+	pool_marked[marked_in_use].position = map_to_local(pos)
+	pool_marked[marked_in_use].show()
+	marked_in_use += 1
 
 	
 func mark_move(point: Vector2i, distance: int) -> Dictionary:
@@ -72,7 +96,7 @@ func mark_move(point: Vector2i, distance: int) -> Dictionary:
 	cost_so_far[point] = 0
 	visited_points[point] = null
 	
-	while points_to_visit.size() > 0:
+	while !points_to_visit.is_empty():
 		var current_point = points_to_visit.pop_front()
 		for surround in get_surrounding_cells(current_point):
 			if !cells_map.has(surround): continue

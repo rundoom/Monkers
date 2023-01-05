@@ -9,6 +9,9 @@ var pool_marked : Array[Node2D] = []
 var marked_in_use = 0
 @onready var space_state := get_world_2d().direct_space_state
 
+class MarkColors:
+	const MOVE = Color(0.16470588743687, 0.40000000596046, 1, 0.34509804844856)
+	const RANGED = Color(0.86274510622025, 0, 0.30588236451149, 0.34509804844856)
 
 class TileType:
 	const EMPTY_CELL = Vector2i(-1, -1)
@@ -54,13 +57,14 @@ func get_used_cell_global_positions() -> Array:
 func _physics_process(delta: float) -> void:
 	var cell_pos = local_to_map(get_local_mouse_position())
 	var cell_atlas = get_cell_atlas_coords(0, cell_pos)
-	$GridDebug.text = str(cell_atlas)
+	$GridDebug.text = str(cell_pos)
 
 
 func make_marking(point: Vector2i, distance: int = 1, is_ray: bool = false) -> Array[Vector2i]:
 	var avaliable_points = mark_move(point, distance) if !is_ray else mark_ray(point, distance)
+	var color = MarkColors.RANGED if is_ray else MarkColors.MOVE
 	clear_marked()
-	for it in avaliable_points: mark(it)
+	for it in avaliable_points: mark(it, color)
 	
 	return avaliable_points
 
@@ -79,13 +83,15 @@ func clear_marked() -> void:
 	marked_in_use = 0
   
 
-func mark(pos: Vector2i):
+func mark(pos: Vector2i, color: Color):
 	if marked_in_use >= pool_marked.size():
 		var new_marker = TilePainter.instantiate() as Polygon2D
 		pool_marked.append(new_marker)
 		add_child(new_marker)
+	pool_marked[marked_in_use].material.set("shader_parameter/filter_color", color)
 	pool_marked[marked_in_use].position = map_to_local(pos)
 	pool_marked[marked_in_use].show()
+	
 	marked_in_use += 1
 
 	

@@ -7,7 +7,7 @@ var current_path: Array[Vector2i]
 var able_to_move: Array[Vector2i]
 var max_move_points = 25
 var current_move_points = max_move_points
-var ray_spell_dist = 10
+var ray_spell_dist = 15
 
 
 func _ready() -> void:
@@ -17,9 +17,12 @@ func _ready() -> void:
 
 
 func _on_target_pos_positioned(grid_position_target) -> void:
-	if grid_position_target not in able_to_move or !$StepTimer.is_stopped(): return
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
 	var grid_id = grid.cells_map[grid_pos]
+	
+	$RayCast2D.target_position = $RayCast2D.to_local(grid.to_global(grid.map_to_local(grid_position_target)))
+	
+	if grid_position_target not in able_to_move or !$StepTimer.is_stopped(): return
 
 	current_path = Array(astar.get_point_path(grid_id, grid.cells_map[grid_position_target])).slice(1)
 	var move_cost = current_path.reduce(func(acc, it): return acc + grid.astar.get_point_weight_scale(grid.cells_map[it]), 0)

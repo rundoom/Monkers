@@ -25,6 +25,8 @@ top_level = true
 process_callback = 0
 wait_time = 0.1
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
 [connection signal="positioned" from="TargetPos" to="." method="_on_target_pos_positioned"]
 [connection signal="pre_positioned" from="TargetPos" to="." method="premark_path"]
 [connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

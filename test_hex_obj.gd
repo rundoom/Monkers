@@ -7,6 +7,7 @@ var current_path: Array[Vector2i]
 var able_to_move: Array[Vector2i]
 var max_move_points = 25
 var current_move_points = max_move_points
+var ray_spell_dist = 10
 
 
 func _ready() -> void:
@@ -66,3 +67,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		current_move_points = max_move_points
 		mark_distance()
+	if event.is_action_pressed("ray_spell"):
+		current_move_points = max_move_points
+		var grid_pos = grid.local_to_map(grid.to_local(global_position))
+		able_to_move = grid.make_marking(grid_pos, ray_spell_dist, true)

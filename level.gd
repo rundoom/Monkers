@@ -7,6 +7,7 @@ var cells_map := {}
 var TilePainter := preload("res://grid_painter.tscn")
 var pool_marked : Array[Node2D] = []
 var marked_in_use = 0
+@onready var space_state := get_world_2d().direct_space_state
 
 
 class TileType:
@@ -56,12 +57,12 @@ func _physics_process(delta: float) -> void:
 	$GridDebug.text = str(cell_atlas)
 
 
-func make_marking(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
-	var avaliable_points = mark_move(point, distance)
+func make_marking(point: Vector2i, distance: int = 1, is_ray: bool = false) -> Array[Vector2i]:
+	var avaliable_points = mark_move(point, distance) if !is_ray else mark_ray(point, distance)
 	clear_marked()
 	for it in avaliable_points: mark(it)
 	
-	return avaliable_points.keys()
+	return avaliable_points
 
 
 func prepare_marked() -> void:
@@ -88,13 +89,13 @@ func mark(pos: Vector2i):
 	marked_in_use += 1
 
 	
-func mark_move(point: Vector2i, distance: int) -> Dictionary:
-	var visited_points := {}
+func mark_move(point: Vector2i, distance: int) -> Array[Vector2i]:
+	var visited_points := []
 	var cost_so_far := {}
 	var points_to_visit := [] as Array[Vector2i]
 	points_to_visit.push_back(point)
 	cost_so_far[point] = 0
-	visited_points[point] = null
+	visited_points.append(point)
 	
 	while !points_to_visit.is_empty():
 		var current_point = points_to_visit.pop_front()
@@ -107,15 +108,43 @@ func mark_move(point: Vector2i, distance: int) -> Dictionary:
 			
 			if new_cost <= distance:
 				if !visited_points.has(surround):
-					visited_points[surround] = current_point
+					visited_points.append(surround)
 					cost_so_far[surround] = new_cost
 					points_to_visit.push_back(surround)
 				elif cost_so_far[surround] > new_cost:
 					cost_so_far[surround] = new_cost
-					visited_points[surround] = current_point
 	
 	visited_points.erase(point)
 	return visited_points
+
+
+func mark_ray(point: Vector2i, distance: int) -> Array[Vector2i]:
+	var visited_points := []
+	var cost_so_far := {}
+	var points_to_visit := [] as Array[Vector2i]
+	points_to_visit.push_back(point)
+	cost_so_far[point] = 0
+	visited_points.append(point)
+	
+	while !points_to_visit.is_empty():
+		var current_point = points_to_visit.pop_front()
+		for surround in get_surrounding_cells(current_point):
+			var current_cost = cost_so_far[current_point]
+			var new_cost = current_cost + 1
+			
+			if new_cost <= distance and !visited_points.has(surround):
+				visited_points.append(surround)
+				cost_so_far[surround] = new_cost
+				points_to_visit.push_back(surround)
+	
+	visited_points.erase(point)
+	return visited_points.filter(_intersect_filter.bind(point))
+
+
+func _intersect_filter(visitor: Vector2i, from: Vector2i) -> bool:
+		var ray = PhysicsRayQueryParameters2D.create(map_to_local(from), map_to_local(visitor), 1)
+		var intersect = space_state.intersect_ray(ray)
+		return true if intersect.is_empty() else false
 
 
 func connect_cardinals(point_position) -> void:

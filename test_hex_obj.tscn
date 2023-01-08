@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://1pyxcm6gk0hm"]
+[gd_scene load_steps=5 format=3 uid="uid://1pyxcm6gk0hm"]
 
 [ext_resource type="Script" path="res://test_hex_obj.gd" id="1_dlcs4"]
 [ext_resource type="Script" path="res://ObjVisual.gd" id="2_gmyu1"]
 [ext_resource type="PackedScene" uid="uid://cwnpn2mphmvqm" path="res://target_pos.tscn" id="2_wnljt"]
+[ext_resource type="PackedScene" uid="uid://b804jqfif2qko" path="res://abilities/move.tscn" id="4_02ev8"]
 
 [node name="TestHexObj" type="Node2D"]
 script = ExtResource("1_dlcs4")
@@ -25,7 +26,9 @@ top_level = true
 process_callback = 0
 wait_time = 0.1
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="AbilityPool" type="Node" parent="."]
+
+[node name="Move" parent="AbilityPool" instance=ExtResource("4_02ev8")]
 
 [connection signal="positioned" from="TargetPos" to="." method="_on_target_pos_positioned"]
 [connection signal="pre_positioned" from="TargetPos" to="." method="premark_path"]

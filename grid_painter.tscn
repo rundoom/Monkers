@@ -5,7 +5,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sqy8s"]
 resource_local_to_scene = true
 shader = ExtResource("1_gaxs1")
-shader_parameter/filter_color = Color(0.862745, 0, 0.305882, 0.345098)
+shader_parameter/filter_color = Color(0.862745, 0, 0.0627451, 0.647059)
 
 [node name="GridPainter" type="Polygon2D" groups=["tile_painter"]]
 material = SubResource("ShaderMaterial_sqy8s")

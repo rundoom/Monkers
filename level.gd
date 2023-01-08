@@ -12,6 +12,7 @@ var marked_in_use = 0
 class MarkColors:
 	const MOVE = Color(0.16470588743687, 0.40000000596046, 1, 0.34509804844856)
 	const RANGED = Color(0.86274510622025, 0, 0.30588236451149, 0.34509804844856)
+	const AOE = Color(0.86274510622025, 0, 0.0627451017499, 0.64705884456635)
 
 class TileType:
 	const EMPTY_CELL = Vector2i(-1, -1)
@@ -60,9 +61,18 @@ func _physics_process(delta: float) -> void:
 	$GridDebug.text = str(cell_pos)
 
 
-func make_marking(point: Vector2i, distance: int = 1, is_ray: bool = false) -> Array[Vector2i]:
-	var avaliable_points = mark_move(point, distance) if !is_ray else mark_ray(point, distance)
-	var color = MarkColors.RANGED if is_ray else MarkColors.MOVE
+func make_marking(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
+	var avaliable_points = mark_move(point, distance)
+	var color = MarkColors.MOVE
+	clear_marked()
+	for it in avaliable_points: mark(it, color)
+	
+	return avaliable_points
+	
+
+func make_marking_ray(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
+	var avaliable_points = mark_ray(point, distance)
+	var color = MarkColors.RANGED
 	clear_marked()
 	for it in avaliable_points: mark(it, color)
 	
@@ -135,6 +145,7 @@ func mark_ray(point: Vector2i, distance: int) -> Array[Vector2i]:
 	while !points_to_visit.is_empty():
 		var current_point = points_to_visit.pop_front()
 		for surround in get_surrounding_cells(current_point):
+			if !_intersect_filter(surround, point): continue
 			var current_cost = cost_so_far[current_point]
 			var new_cost = current_cost + 1
 			
@@ -144,13 +155,13 @@ func mark_ray(point: Vector2i, distance: int) -> Array[Vector2i]:
 				points_to_visit.push_back(surround)
 	
 	visited_points.erase(point)
-	return visited_points.filter(_intersect_filter.bind(point))
+	return visited_points
 
 
 func _intersect_filter(visitor: Vector2i, from: Vector2i) -> bool:
-		var ray = PhysicsRayQueryParameters2D.create(map_to_local(from), map_to_local(visitor), 1)
-		var intersect = space_state.intersect_ray(ray)
-		return true if intersect.is_empty() else false
+	var ray = PhysicsRayQueryParameters2D.create(map_to_local(from), map_to_local(visitor), 1)
+	var intersect = space_state.intersect_ray(ray)
+	return true if intersect.is_empty() else false
 
 
 func connect_cardinals(point_position) -> void:

@@ -9,12 +9,18 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node",
+"class": &"Ability",
+"language": &"GDScript",
+"path": "res://abilities/Ability.gd"
+}, {
 "base": "TileMap",
 "class": &"Grid",
 "language": &"GDScript",
 "path": "res://level.gd"
 }]
 _global_script_class_icons={
+"Ability": "",
 "Grid": ""
 }
 

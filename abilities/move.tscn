@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b804jqfif2qko"]
+
+[ext_resource type="PackedScene" uid="uid://0uyakg8vaite" path="res://abilities/ability.tscn" id="1_i0nbs"]
+[ext_resource type="Script" path="res://Move.gd" id="2_afy6k"]
+
+[node name="Move" instance=ExtResource("1_i0nbs")]
+script = ExtResource("2_afy6k")

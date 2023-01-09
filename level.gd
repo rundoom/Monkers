@@ -92,6 +92,8 @@ func prepare_marked() -> void:
 func clear_marked() -> void:
 	for marked in pool_marked:
 		marked.visible = false
+	for remarked in pool_remarked:
+		remarked.visible = false
 	marked_in_use = 0
 
 

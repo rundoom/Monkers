@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://u0gfmgg02wqn"]
+
+[ext_resource type="PackedScene" uid="uid://0uyakg8vaite" path="res://abilities/ability.tscn" id="1_5hqq5"]
+[ext_resource type="Script" path="res://Ranged.gd" id="2_k45v3"]
+
+[node name="Ranged" instance=ExtResource("1_5hqq5")]
+script = ExtResource("2_k45v3")
+range = 5

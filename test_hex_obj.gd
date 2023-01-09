@@ -8,8 +8,17 @@ var able_to_move: Array[Vector2i]
 var max_move_points = 15
 var current_move_points = max_move_points
 var ray_spell_dist = 15
-@onready var current_ability: Ability = $AbilityPool/Move
 var current_mouse_to_grid: Vector2i
+var ability_key_mapping := {
+	"1" : 0,
+	"2" : 1
+}
+
+@onready var current_ability: Ability:
+	set(value):
+		if current_ability != null: current_ability.set_process_input(false)
+		value.set_process_input(true)
+		current_ability = value
 
 
 func _ready() -> void:
@@ -19,17 +28,18 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		current_move_points = max_move_points
-		var grid_pos = grid.local_to_map(grid.to_local(global_position))
-		current_ability.mark(grid_pos, current_move_points)
+	for mapped_key in ability_key_mapping:
+		if event.is_action_pressed(mapped_key):
+			current_ability = $AbilityPool.get_child(ability_key_mapping[mapped_key])
+			mark_ability()
 		
-	if event.is_action_pressed("ray_spell"):
-		current_move_points = max_move_points
-		var grid_pos = grid.local_to_map(grid.to_local(global_position))
-		able_to_move = grid.make_marking_ray(grid_pos, ray_spell_dist)
-		
-	if event.is_action_pressed("LMB"):
+	if event.is_action_pressed("LMB") and current_ability != null:
 		var grid_pos = grid.local_to_map(grid.to_local(event.global_position))
 		var char_grid = grid.local_to_map(grid.to_local(global_position))
 		current_ability.perform(char_grid, grid_pos)
+
+
+func mark_ability():
+	current_move_points = max_move_points
+	var grid_pos = grid.local_to_map(grid.to_local(global_position))
+	current_ability.mark(grid_pos, current_move_points)

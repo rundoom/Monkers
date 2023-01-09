@@ -6,6 +6,11 @@ class_name Ability
 var character: Node2D
 var current_mouse_to_grid: Vector2i
 @onready var astar = grid.astar as AStar2D
+@export var range: int
+
+
+func _ready() -> void:
+	set_process_input(false)
 
 
 func perform(from_position: Vector2i, target_position: Vector2i):

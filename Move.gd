@@ -9,7 +9,7 @@ var able_to_move: Array[Vector2i]
 func perform(from_position: Vector2i, target_position: Vector2i):
 	var char_grid_id = grid.cells_map[from_position]
 	var target_grid_id = grid.cells_map[target_position]
-	
+
 	if target_position not in able_to_move or !$StepTimer.is_stopped(): return
 
 	current_path = Array(astar.get_point_path(char_grid_id, target_grid_id)).slice(1)

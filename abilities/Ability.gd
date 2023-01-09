@@ -13,9 +13,13 @@ func _ready() -> void:
 	set_process_input(false)
 
 
-func perform(from_position: Vector2i, target_position: Vector2i):
+func perform(from_position: Vector2i, target_position: Vector2i) -> void:
 	pass
 	
 	
-func mark(point: Vector2i):
+func mark(point: Vector2i) -> void:
+	pass
+
+
+func premark_path(target_pos: Vector2i) -> void:
 	pass

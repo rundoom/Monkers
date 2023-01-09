@@ -14,6 +14,7 @@ func perform(from_position: Vector2i, target_position: Vector2i):
 
 	current_path = Array(astar.get_point_path(char_grid_id, target_grid_id)).slice(1)
 	var move_cost = current_path.reduce(func(acc, it): return acc + grid.astar.get_point_weight_scale(grid.cells_map[it]), 0)
+	move_points -= move_cost
 
 	if !current_path.is_empty():
 		_on_step_timer_timeout()
@@ -21,11 +22,12 @@ func perform(from_position: Vector2i, target_position: Vector2i):
 
 
 func mark(point: Vector2i):
+	move_points = ability_range
 	able_to_move = grid.make_marking(point, move_points)
 
 
-func mark_distance():
-	var grid_pos = grid.local_to_map(grid.to_local(character.global_position))
+func continue_mark(point: Vector2i):
+	able_to_move = grid.make_marking(point, move_points)
 
 
 func premark_path(target_pos: Vector2i):
@@ -40,7 +42,8 @@ func premark_path(target_pos: Vector2i):
 func _on_step_timer_timeout() -> void:
 	if current_path.is_empty():
 		$StepTimer.stop()
-		mark_distance()
+		var grid_pos = grid.local_to_map(grid.to_local(character.global_position))
+		continue_mark(grid_pos)
 		return
 		
 	var next_step = current_path.pop_front() as Vector2i
@@ -49,7 +52,6 @@ func _on_step_timer_timeout() -> void:
 
 	for point in current_path:
 		var point_vec = grid.map_to_local(point) - character.position
-#		$Movement.add_point(point_vec)
 
 
 func _input(event: InputEvent) -> void:

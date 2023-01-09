@@ -3,7 +3,6 @@ extends Node2D
 
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
 
-
 var ability_key_mapping := {
 	"1" : 0,
 	"2" : 1

@@ -5,4 +5,4 @@
 
 [node name="Ranged" instance=ExtResource("1_5hqq5")]
 script = ExtResource("2_k45v3")
-range = 5
+ability_range = 5

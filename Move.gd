@@ -1,7 +1,7 @@
 extends Ability
 
 
-var move_points: int
+@onready var move_points: int = ability_range
 var current_path: Array[Vector2i]
 var able_to_move: Array[Vector2i]
 
@@ -20,8 +20,8 @@ func perform(from_position: Vector2i, target_position: Vector2i):
 		$StepTimer.start()
 
 
-func mark(point: Vector2i, distance: int):
-	able_to_move = grid.make_marking(point, distance)
+func mark(point: Vector2i):
+	able_to_move = grid.make_marking(point, move_points)
 
 
 func mark_distance():

@@ -1,14 +1,14 @@
 extends Node
 class_name Ability
 
+
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
-#enum GridType {MOVING, TARGET, CONE, AOE}
-#
-#
-#@export_enum(MOVING, TARGET, CONE, AOE) var ability_type: int
+var character: Node2D
+var current_mouse_to_grid: Vector2i
+@onready var astar = grid.astar as AStar2D
 
 
-func perform(target_position: Vector2i):
+func perform(from_position: Vector2i, target_position: Vector2i):
 	pass
 	
 	

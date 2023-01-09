@@ -5,3 +5,9 @@
 
 [node name="Move" instance=ExtResource("1_i0nbs")]
 script = ExtResource("2_afy6k")
+
+[node name="StepTimer" type="Timer" parent="." index="0"]
+process_callback = 0
+wait_time = 0.1
+
+[connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

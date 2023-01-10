@@ -117,7 +117,7 @@ func mark(pos: Vector2i, color: Color, is_remarked_pool: bool = false) -> Node2D
 func remark(pos: Array[Vector2i]):
 	for it in pool_remarked:
 		it.visible = false
-		marked_in_use -= 1
+		clampi(marked_in_use - 1, 0, 4294967295)
 	pool_remarked.clear()
 	
 	for it in pos: var remarked_node = mark(it, MarkColors.REMARKED, true)
@@ -152,7 +152,7 @@ func mark_move(point: Vector2i, distance: int) -> Array[Vector2i]:
 	return visited_points
 
 
-func mark_ray(point: Vector2i, distance: int) -> Array[Vector2i]:
+func mark_ray(point: Vector2i, distance: int, erase_center: bool = false) -> Array[Vector2i]:
 	var visited_points := []
 	var cost_so_far := {}
 	var points_to_visit := [] as Array[Vector2i]
@@ -172,7 +172,7 @@ func mark_ray(point: Vector2i, distance: int) -> Array[Vector2i]:
 				cost_so_far[surround] = new_cost
 				points_to_visit.push_back(surround)
 	
-	visited_points.erase(point)
+	if erase_center: visited_points.erase(point)
 	return visited_points
 
 

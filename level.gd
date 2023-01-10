@@ -73,9 +73,9 @@ func make_marking(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
 
 func make_marking_ray(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
 	pool_remarked.clear()
+	mark_pool.release_all()
 	var avaliable_points = mark_ray(point, distance)
 	var color = MarkColors.RANGED
-	mark_pool.release_all()
 	for it in avaliable_points: mark(it, color)
 	
 	return avaliable_points

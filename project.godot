@@ -18,10 +18,16 @@ _global_script_classes=[{
 "class": &"Grid",
 "language": &"GDScript",
 "path": "res://level.gd"
+}, {
+"base": "Object",
+"class": &"MarkPool",
+"language": &"GDScript",
+"path": "res://MarkPool.gd"
 }]
 _global_script_class_icons={
 "Ability": "",
-"Grid": ""
+"Grid": "",
+"MarkPool": ""
 }
 
 [application]

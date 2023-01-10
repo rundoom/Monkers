@@ -4,11 +4,10 @@ class_name Grid
 
 var astar := AStar2D.new()
 var cells_map := {}
-var TilePainter := preload("res://grid_painter.tscn")
-var pool_marked : Array[Node2D] = []
-var pool_remarked : Array[Node2D] = []
-var marked_in_use = 0
+var pool_remarked: Array[Polygon2D] = []
 @onready var space_state := get_world_2d().direct_space_state
+@onready var mark_pool = MarkPool.new(self)
+
 
 class MarkColors:
 	const MOVE = Color(0.16470588743687, 0.40000000596046, 1, 0.34509804844856)
@@ -24,7 +23,6 @@ class TileType:
 
 
 func _ready() -> void:
-	prepare_marked()
 	update()
 	
 
@@ -64,63 +62,40 @@ func _physics_process(delta: float) -> void:
 
 
 func make_marking(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
+	pool_remarked.clear()
+	mark_pool.release_all()
 	var avaliable_points = mark_move(point, distance)
 	var color = MarkColors.MOVE
-	clear_marked()
 	for it in avaliable_points: mark(it, color)
 	
 	return avaliable_points
 	
 
 func make_marking_ray(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
+	pool_remarked.clear()
 	var avaliable_points = mark_ray(point, distance)
 	var color = MarkColors.RANGED
-	clear_marked()
+	mark_pool.release_all()
 	for it in avaliable_points: mark(it, color)
 	
 	return avaliable_points
 
 
-func prepare_marked() -> void:
-	for i in 1024:
-		var tile_painter = TilePainter.instantiate() as Polygon2D
-		tile_painter.visible = false
-		pool_marked.append(tile_painter)
-		add_child(tile_painter)
-	
-	
-func clear_marked() -> void:
-	for marked in pool_marked:
-		marked.visible = false
-	for remarked in pool_remarked:
-		remarked.visible = false
-	marked_in_use = 0
-
-
-func mark(pos: Vector2i, color: Color, is_remarked_pool: bool = false) -> Node2D:
-	var pool = pool_remarked if is_remarked_pool else pool_marked
-	var new_marker: Polygon2D
-	if marked_in_use >= pool.size():
-		new_marker = TilePainter.instantiate() as Polygon2D
-		pool.append(new_marker)
-		add_child(new_marker)
-	else:
-		new_marker = pool[marked_in_use]
+func mark(pos: Vector2i, color: Color) -> Node2D:
+	var new_marker := mark_pool.get_marker()
 	new_marker.material.set("shader_parameter/filter_color", color)
 	new_marker.position = map_to_local(pos)
-	new_marker.show()
 	
-	marked_in_use += 1
-	return pool_marked[marked_in_use]
-	
+	return new_marker
+
 
 func remark(pos: Array[Vector2i]):
-	for it in pool_remarked:
-		it.visible = false
-		clampi(marked_in_use - 1, 0, 4294967295)
+	for it in pool_remarked: mark_pool.release_marker(it)
 	pool_remarked.clear()
 	
-	for it in pos: var remarked_node = mark(it, MarkColors.REMARKED, true)
+	for it in pos:
+		var remarked_node = mark(it, MarkColors.REMARKED)
+		pool_remarked.append(remarked_node)
 	
 	
 func mark_move(point: Vector2i, distance: int) -> Array[Vector2i]:

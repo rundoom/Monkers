@@ -4,9 +4,14 @@ extends Ability
 @onready var move_points: int = ability_range
 var current_path: Array[Vector2i]
 var able_to_move: Array[Vector2i]
+var is_started = false
 
 
 func perform(from_position: Vector2i, target_position: Vector2i):
+	if !is_started:
+		is_started = true
+		drain_stats()
+		
 	var char_grid_id = grid.cells_map[from_position]
 	var target_grid_id = grid.cells_map[target_position]
 
@@ -22,6 +27,7 @@ func perform(from_position: Vector2i, target_position: Vector2i):
 
 
 func mark(point: Vector2i):
+	is_started = false
 	move_points = ability_range
 	able_to_move = grid.make_marking(point, move_points)
 

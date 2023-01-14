@@ -13,7 +13,7 @@ script = ExtResource("1_dlcs4")
 scale = Vector2(0.408, 0.408)
 color = Color(1, 0.8, 1, 1)
 offset = Vector2(-87, -31)
-polygon = PackedVector2Array(62, 17, 87, 2, 113, 17, 113, 47, 90, 61, 62, 46)
+polygon = PackedVector2Array(62, 17, 87, 2, 113, 17, 113, 47, 87, 60.4118, 62, 46)
 script = ExtResource("2_gmyu1")
 
 [node name="AbilityPool" type="Node" parent="."]
@@ -23,5 +23,38 @@ script = ExtResource("4_aw1fh")
 
 [node name="Ranged" parent="AbilityPool" instance=ExtResource("5_sbbs6")]
 aoe = null
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer"]
+offset_right = 652.0
+offset_bottom = 86.0
+
+[node name="Body" type="ProgressBar" parent="UILayer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+step = 1.0
+value = 20.0
+show_percentage = false
+
+[node name="Spirit" type="ProgressBar" parent="UILayer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+size_flags_vertical = 3
+step = 1.0
+value = 20.0
+show_percentage = false
+
+[node name="Mind" type="ProgressBar" parent="UILayer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+size_flags_vertical = 3
+step = 1.0
+value = 20.0
+show_percentage = false
 
 [connection signal="child_entered_tree" from="AbilityPool" to="AbilityPool" method="_on_child_entered_tree"]

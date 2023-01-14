@@ -1,7 +1,39 @@
 extends Node2D
+class_name Character
 
 
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
+
+@export var max_body = 5:
+	set(value):
+		max_body = value
+		%Body.max_value = value
+	
+var body = max_body:
+	set(value):
+		body = value
+		%Body.value = value
+		
+@export var max_spirit = 5:
+	set(value):
+		max_spirit = value
+		%Spirit.max_value = value
+	
+@export var spirit = max_spirit:
+	set(value):
+		spirit = value
+		%Spirit.value = value
+		
+@export var max_mind = 5:
+	set(value):
+		max_mind = value
+		%Mind.max_value = value
+	
+@export var mind = max_mind:
+	set(value):
+		mind = value
+		%Mind.value = value
+
 
 var ability_key_mapping := {
 	"1" : 0,
@@ -20,6 +52,7 @@ func _ready() -> void:
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
 	var precise_position = grid.map_to_local(grid_pos)
 	global_position = grid.to_global(precise_position)
+	init_setters()
 
 
 func _input(event: InputEvent) -> void:
@@ -35,4 +68,13 @@ func _input(event: InputEvent) -> void:
 
 func mark_ability():
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
-	current_ability.mark(grid_pos)
+	current_ability.init_ability(grid_pos)
+
+
+func init_setters():
+	max_body = max_body
+	body = body
+	max_spirit = max_spirit
+	spirit = spirit
+	max_mind = max_mind
+	mind = mind

@@ -69,7 +69,7 @@ func _input(event: InputEvent) -> void:
 			current_ability = $AbilityPool.get_child(ability_key_mapping[mapped_key])
 		
 	if event.is_action_pressed("LMB") and current_ability != null:
-		var grid_pos = grid.local_to_map(grid.to_local(event.global_position))
+		var grid_pos = grid.local_to_map(grid.to_local(get_global_mouse_position()))
 		var char_grid = grid.local_to_map(grid.to_local(global_position))
 		current_ability.perform(char_grid, grid_pos)
 		

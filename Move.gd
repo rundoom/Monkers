@@ -58,12 +58,3 @@ func _on_step_timer_timeout() -> void:
 
 	for point in current_path:
 		var point_vec = grid.map_to_local(point) - character.position
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		var grid_pos = grid.local_to_map(grid.to_local(event.global_position))
-		if grid_pos != current_mouse_to_grid:
-			var precise_position = grid.map_to_local(grid_pos)
-			current_mouse_to_grid = grid_pos
-			premark_path(grid_pos)

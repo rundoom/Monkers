@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://buwehtob1p2rt"]
+[gd_scene load_steps=11 format=3 uid="uid://buwehtob1p2rt"]
 
 [ext_resource type="Texture2D" uid="uid://baq17yfmbu002" path="res://fantasyhextiles_v3_borderless.png" id="1_icibe"]
 [ext_resource type="PackedScene" uid="uid://boeyps4htvolw" path="res://test_hex_obj.tscn" id="2_ss8ak"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://GridDebug.gd" id="4_sewjx"]
 [ext_resource type="Script" path="res://AstarDebug.gd" id="5_th2fx"]
 [ext_resource type="PackedScene" uid="uid://dwb0223wlr1ll" path="res://turn_manager.tscn" id="6_vk7l7"]
+[ext_resource type="PackedScene" uid="uid://ckpm471k8sx0e" path="res://main_camera.tscn" id="7_mc5fo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eu47c"]
 resource_name = "Floor"
@@ -204,4 +205,4 @@ position = Vector2(400.421, 380.151)
 
 [node name="TurnManager" parent="." instance=ExtResource("6_vk7l7")]
 
-[node name="MainCamera" parent="." instance_placeholder="res://main_camera.tscn"]
+[node name="MainCamera" parent="." instance=ExtResource("7_mc5fo")]

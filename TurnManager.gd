@@ -14,8 +14,7 @@ func _ready() -> void:
 func change_turn():
 	characters_in_order.sort_custom(sort_by_mind)
 	var current_char = characters_in_order.pop_back()
-#	camera.reparent.call_deferred(current_char)
-#	camera.global_position = current_char.global_position
+	camera.master = current_char
 	current_char.start_turn()
 	if characters_in_order.is_empty(): characters_in_order = characters.duplicate()
 

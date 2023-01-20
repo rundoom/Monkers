@@ -4,6 +4,7 @@ class_name TurnManager
 
 @onready var characters := get_tree().get_nodes_in_group("character")
 @onready var characters_in_order := characters.duplicate()
+@onready var camera = get_tree().get_first_node_in_group("camera")
 
 
 func _ready() -> void:
@@ -12,7 +13,10 @@ func _ready() -> void:
 
 func change_turn():
 	characters_in_order.sort_custom(sort_by_mind)
-	characters_in_order.pop_back().start_turn()
+	var current_char = characters_in_order.pop_back()
+#	camera.reparent.call_deferred(current_char)
+#	camera.global_position = current_char.global_position
+	current_char.start_turn()
 	if characters_in_order.is_empty(): characters_in_order = characters.duplicate()
 
 

@@ -1,13 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://1pyxcm6gk0hm"]
+[gd_scene load_steps=6 format=3 uid="uid://boeyps4htvolw"]
 
-[ext_resource type="Script" path="res://test_hex_obj.gd" id="1_dlcs4"]
+[ext_resource type="Script" path="res://character.gd" id="1_ay3mk"]
 [ext_resource type="Script" path="res://ObjVisual.gd" id="2_gmyu1"]
 [ext_resource type="PackedScene" uid="uid://b804jqfif2qko" path="res://abilities/move.tscn" id="4_02ev8"]
 [ext_resource type="Script" path="res://AbilityPool.gd" id="4_aw1fh"]
 [ext_resource type="PackedScene" uid="uid://u0gfmgg02wqn" path="res://abilities/ranged.tscn" id="5_sbbs6"]
 
-[node name="TestHexObj" type="Node2D" groups=["character"]]
-script = ExtResource("1_dlcs4")
+[node name="Character" type="Node2D" groups=["character"]]
+script = ExtResource("1_ay3mk")
 
 [node name="ObjVisual" type="Polygon2D" parent="."]
 scale = Vector2(0.408, 0.408)

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ckpm471k8sx0e"]
+
+[node name="MainCamera" type="Camera2D" groups=["camera"]]
+current = true
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true

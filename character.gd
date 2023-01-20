@@ -50,9 +50,8 @@ var ability_key_mapping := {
 		if is_marked:
 			if current_ability != null: current_ability.set_process_input(false)
 			new_ability.set_process_input(true)
+			current_ability = new_ability
 		
-		current_ability = new_ability
-
 
 func _ready() -> void:
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
@@ -87,6 +86,7 @@ func end_turn():
 	set_process_input(false)
 	$UILayer.visible = false
 	grid.clear_marking()
+	if current_ability != null: current_ability.set_process_input(false)
 	current_ability = null
 	turn_manager.change_turn()
 

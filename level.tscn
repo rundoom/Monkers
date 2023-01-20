@@ -206,3 +206,5 @@ position = Vector2(400.421, 380.151)
 [node name="TurnManager" parent="." instance=ExtResource("6_vk7l7")]
 
 [node name="MainCamera" parent="." instance=ExtResource("7_mc5fo")]
+
+[node name="MarkerHolder" type="Node2D" parent="."]

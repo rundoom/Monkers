@@ -6,7 +6,7 @@ var astar := AStar2D.new()
 var cells_map := {}
 var pool_remarked: Array[Polygon2D] = []
 @onready var space_state := get_world_2d().direct_space_state
-@onready var mark_pool = MarkPool.new(self)
+@onready var mark_pool = MarkPool.new($MarkerHolder)
 
 
 class MarkColors:

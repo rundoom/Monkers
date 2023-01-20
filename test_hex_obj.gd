@@ -3,6 +3,8 @@ class_name Character
 
 
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
+@onready var turn_manager = get_tree().get_first_node_in_group("turn_manager")
+
 
 @export var max_body = 5:
 	set(value):
@@ -41,11 +43,15 @@ var ability_key_mapping := {
 }
 
 @onready var current_ability: Ability:
-	set(value):
-		if current_ability != null: current_ability.set_process_input(false)
-		value.set_process_input(true)
-		current_ability = value
-		mark_ability()
+	set(new_ability):
+		var is_marked: bool = false
+		if new_ability != null: is_marked = mark_ability(new_ability)
+		
+		if is_marked:
+			if current_ability != null: current_ability.set_process_input(false)
+			new_ability.set_process_input(true)
+		
+		current_ability = new_ability
 
 
 func _ready() -> void:
@@ -53,6 +59,9 @@ func _ready() -> void:
 	var precise_position = grid.map_to_local(grid_pos)
 	global_position = grid.to_global(precise_position)
 	init_setters()
+	
+	set_process_input(false)
+	$UILayer.visible = false
 
 
 func _input(event: InputEvent) -> void:
@@ -64,11 +73,27 @@ func _input(event: InputEvent) -> void:
 		var grid_pos = grid.local_to_map(grid.to_local(event.global_position))
 		var char_grid = grid.local_to_map(grid.to_local(global_position))
 		current_ability.perform(char_grid, grid_pos)
+		
+	if event.is_action_pressed("ui_accept"):
+		end_turn()
 
 
-func mark_ability():
+func mark_ability(ability: Ability) -> bool:
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
-	current_ability.init_ability(grid_pos)
+	return ability.init_ability(grid_pos)
+
+
+func end_turn():
+	set_process_input(false)
+	$UILayer.visible = false
+	grid.clear_marking()
+	current_ability = null
+	turn_manager.change_turn(self)
+
+
+func start_turn():
+	set_process_input(true)
+	$UILayer.visible = true
 
 
 func init_setters():

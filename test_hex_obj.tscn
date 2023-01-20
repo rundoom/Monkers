@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://AbilityPool.gd" id="4_aw1fh"]
 [ext_resource type="PackedScene" uid="uid://u0gfmgg02wqn" path="res://abilities/ranged.tscn" id="5_sbbs6"]
 
-[node name="TestHexObj" type="Node2D"]
+[node name="TestHexObj" type="Node2D" groups=["character"]]
 script = ExtResource("1_dlcs4")
 
 [node name="ObjVisual" type="Polygon2D" parent="."]

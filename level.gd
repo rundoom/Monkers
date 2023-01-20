@@ -71,6 +71,11 @@ func make_marking(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
 	return avaliable_points
 	
 
+func clear_marking():
+	pool_remarked.clear()
+	mark_pool.release_all()
+	
+
 func make_marking_ray(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
 	pool_remarked.clear()
 	mark_pool.release_all()

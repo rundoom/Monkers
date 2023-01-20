@@ -25,9 +25,11 @@ func mark(point: Vector2i) -> void:
 	pass
 
 
-func init_ability(point: Vector2i) -> void:
-	if character.body < body_cost or character.spirit < spirit_cost or character.mind < mind_cost: return
+func init_ability(point: Vector2i) -> bool:
+	if character.body < body_cost or character.spirit < spirit_cost or character.mind < mind_cost: return false
 	mark(point)
+	return true
+	
 
 func premark_path(target_pos: Vector2i) -> void:
 	pass

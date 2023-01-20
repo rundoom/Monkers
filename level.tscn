@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://buwehtob1p2rt"]
+[gd_scene load_steps=10 format=3 uid="uid://buwehtob1p2rt"]
 
 [ext_resource type="Texture2D" uid="uid://baq17yfmbu002" path="res://fantasyhextiles_v3_borderless.png" id="1_icibe"]
 [ext_resource type="PackedScene" uid="uid://1pyxcm6gk0hm" path="res://test_hex_obj.tscn" id="2_ss8ak"]
 [ext_resource type="Script" path="res://level.gd" id="3_6w8ba"]
 [ext_resource type="Script" path="res://GridDebug.gd" id="4_sewjx"]
 [ext_resource type="Script" path="res://AstarDebug.gd" id="5_th2fx"]
+[ext_resource type="PackedScene" uid="uid://dwb0223wlr1ll" path="res://turn_manager.tscn" id="6_vk7l7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eu47c"]
 resource_name = "Floor"
@@ -197,3 +198,8 @@ script = ExtResource("5_th2fx")
 
 [node name="TestHexObj" parent="." instance=ExtResource("2_ss8ak")]
 position = Vector2(589, 234)
+
+[node name="TestHexObj2" parent="." instance=ExtResource("2_ss8ak")]
+position = Vector2(400.421, 380.151)
+
+[node name="TurnManager" parent="." instance=ExtResource("6_vk7l7")]

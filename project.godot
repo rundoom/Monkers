@@ -8,34 +8,6 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "Node",
-"class": &"Ability",
-"language": &"GDScript",
-"path": "res://abilities/Ability.gd"
-}, {
-"base": "Node2D",
-"class": &"Character",
-"language": &"GDScript",
-"path": "res://test_hex_obj.gd"
-}, {
-"base": "TileMap",
-"class": &"Grid",
-"language": &"GDScript",
-"path": "res://level.gd"
-}, {
-"base": "Object",
-"class": &"MarkPool",
-"language": &"GDScript",
-"path": "res://MarkPool.gd"
-}]
-_global_script_class_icons={
-"Ability": "",
-"Character": "",
-"Grid": "",
-"MarkPool": ""
-}
-
 [application]
 
 config/name="Monkers"
@@ -51,6 +23,7 @@ window/size/viewport_height=1080
 [editor]
 
 movie_writer/movie_file="C:/Users/d_b_o/OneDrive/Документы/GodotProjects/Monkers/out/footage/footage.avi"
+export/convert_text_resources_to_binary=true
 
 [editor_plugins]
 

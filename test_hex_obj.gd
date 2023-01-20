@@ -88,7 +88,7 @@ func end_turn():
 	$UILayer.visible = false
 	grid.clear_marking()
 	current_ability = null
-	turn_manager.change_turn(self)
+	turn_manager.change_turn()
 
 
 func start_turn():

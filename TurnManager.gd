@@ -3,13 +3,20 @@ class_name TurnManager
 
 
 @onready var characters := get_tree().get_nodes_in_group("character")
+@onready var characters_in_order := characters.duplicate()
 
 
 func _ready() -> void:
-	change_turn(characters[0])
+	change_turn()
 
 
-func change_turn(character: Character):
-	var current_index = characters.find(character)
-	current_index = wrapi(current_index + 1, 0, characters.size())
-	characters[current_index].start_turn()
+func change_turn():
+	characters_in_order.sort_custom(sort_by_mind)
+	characters_in_order.pop_back().start_turn()
+	if characters_in_order.is_empty(): characters_in_order = characters.duplicate()
+
+
+func sort_by_mind(a: Character, b: Character) -> bool:
+	if a.mind < b.mind: return true
+	else: return false
+	

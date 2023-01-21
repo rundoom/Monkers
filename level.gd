@@ -136,7 +136,13 @@ func point_weight(point: Vector2i) -> float:
 
 
 func is_point_passable(point: Vector2i) -> bool:
-	return get_cell_atlas_coords(0, point) != TileType.EMPTY_CELL and point_weight(point) != -1
+	var interceptor_point = PhysicsPointQueryParameters2D.new()
+	interceptor_point.position = map_to_local(point)
+	interceptor_point.collision_mask = 1
+
+	return get_cell_atlas_coords(0, point) != TileType.EMPTY_CELL and \
+		point_weight(point) != -1 and \
+		space_state.intersect_point(interceptor_point).is_empty()
 
 
 func _intersect_filter(visitor: Vector2i, from: Vector2i) -> bool:

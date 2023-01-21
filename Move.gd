@@ -8,11 +8,11 @@ var is_started = false
 
 
 func perform(from_position: Vector2i, target_position: Vector2i):
+	if target_position not in able_to_move or !$StepTimer.is_stopped(): return
+	
 	if !is_started:
 		is_started = true
 		drain_stats()
-
-	if target_position not in able_to_move or !$StepTimer.is_stopped(): return
 
 	current_path = Array(track_path(target_position, able_to_move))
 	current_path.reverse()

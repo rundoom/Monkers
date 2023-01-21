@@ -7,7 +7,7 @@ var able_to_move: Dictionary
 var is_started = false
 
 
-func perform(from_position: Vector2i, target_position: Vector2i):
+func perform(_from_position: Vector2i, target_position: Vector2i):
 	if target_position not in able_to_move or !$StepTimer.is_stopped(): return
 	
 	if !is_started:
@@ -63,6 +63,3 @@ func _on_step_timer_timeout() -> void:
 	var next_step = current_path.pop_front() as Vector2i
 	var precise_position = grid.map_to_local(next_step)
 	character.global_position = grid.to_global(precise_position)
-
-	for point in current_path:
-		var point_vec = grid.map_to_local(point) - character.position

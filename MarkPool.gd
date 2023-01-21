@@ -8,8 +8,8 @@ var TilePainter := preload("res://grid_painter.tscn")
 var master: Node2D
 
 
-func _init(master: Node2D) -> void:
-	self.master = master
+func _init(master_node: Node2D) -> void:
+	self.master = master_node
 	prepare_marked()
 
 

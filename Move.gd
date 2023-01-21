@@ -3,7 +3,7 @@ extends Ability
 
 @onready var move_points: int = ability_range
 var current_path: Array[Vector2i]
-var able_to_move: Array[Vector2i]
+var able_to_move: Dictionary
 var is_started = false
 
 
@@ -11,14 +11,14 @@ func perform(from_position: Vector2i, target_position: Vector2i):
 	if !is_started:
 		is_started = true
 		drain_stats()
-		
-	var char_grid_id = grid.cells_map[from_position]
-	var target_grid_id = grid.cells_map[target_position]
 
 	if target_position not in able_to_move or !$StepTimer.is_stopped(): return
 
-	current_path = Array(astar.get_point_path(char_grid_id, target_grid_id)).slice(1)
-	var move_cost = current_path.reduce(func(acc, it): return acc + grid.astar.get_point_weight_scale(grid.cells_map[it]), 0)
+	current_path = Array(track_path(target_position, able_to_move))
+	current_path.reverse()
+	current_path = current_path.slice(1)
+	
+	var move_cost = current_path.reduce(func(acc, it): return acc + grid.point_weight(it), 0)
 	move_points -= move_cost
 
 	if !current_path.is_empty():
@@ -39,10 +39,18 @@ func continue_mark(point: Vector2i):
 func premark_path(target_pos: Vector2i):
 	if !current_path.is_empty() or target_pos not in able_to_move: return
 	
-	var grid_pos = grid.local_to_map(grid.to_local(character.global_position))
-	var grid_id = grid.cells_map[grid_pos]
-	var pre_path = astar.get_point_path(grid_id, grid.cells_map[target_pos])
-	grid.remark(pre_path)
+	grid.remark(track_path(target_pos, able_to_move))
+
+
+func track_path(target_pos: Vector2i, avaliable_routes: Dictionary) -> PackedVector2Array:
+	var pre_path = PackedVector2Array()
+	var next_point = target_pos
+	
+	while next_point != null:
+		pre_path.append(next_point)
+		next_point = avaliable_routes.get(next_point)
+		
+	return pre_path
 
 
 func _on_step_timer_timeout() -> void:

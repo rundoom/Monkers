@@ -108,7 +108,7 @@ func mark_move(point: Vector2i, distance: int) -> Dictionary:
 
 
 func mark_ray(point: Vector2i, distance: int, erase_center: bool = false) -> Array[Vector2i]:
-	var visited_points := []
+	var visited_points := [] as Array[Vector2i]
 	var cost_so_far := {}
 	var points_to_visit := [] as Array[Vector2i]
 	points_to_visit.push_back(point)

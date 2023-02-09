@@ -20,7 +20,7 @@ script = ExtResource("3_n0vlj")
 [node name="Move" parent="AbilityPool" instance=ExtResource("4_n8sfr")]
 
 [node name="Ranged" parent="AbilityPool" instance=ExtResource("5_o2pb4")]
-aoe = null
+aoe = 0
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

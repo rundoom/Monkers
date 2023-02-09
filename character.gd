@@ -4,7 +4,10 @@ class_name Character
 
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
 @onready var turn_manager = get_tree().get_first_node_in_group("turn_manager")
-
+var abilities_at_turn := 0
+var current_multiplier: int:
+	get: return fibonacci(abilities_at_turn)
+		
 
 @export var max_body = 5:
 	set(value):
@@ -73,8 +76,9 @@ func _input(event: InputEvent) -> void:
 		var char_grid = grid.local_to_map(grid.to_local(global_position))
 		current_ability.perform(char_grid, grid_pos)
 		
-	if event.is_action_pressed("ui_accept"):
-		end_turn()
+	if event.is_action_pressed("RMB"): end_ability()
+		
+	if event.is_action_pressed("ui_accept"): end_turn()
 
 
 func mark_ability(ability: Ability) -> bool:
@@ -88,12 +92,22 @@ func end_turn():
 	grid.clear_marking()
 	if current_ability != null: current_ability.set_process_input(false)
 	current_ability = null
+	abilities_at_turn = 0
 	turn_manager.change_turn()
+
+
+func end_ability():
+	current_ability != null
+	abilities_at_turn += 1
 
 
 func start_turn():
 	set_process_input(true)
 	$UILayer.visible = true
+
+
+func fibonacci(n):
+	return 1 if n < 2 else fibonacci(n-1) + fibonacci(n-2)
 
 
 func init_setters():

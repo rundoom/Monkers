@@ -2,7 +2,7 @@ extends Ability
 
 
 @onready var move_points: int = ability_range
-var current_path: Array[Vector2i]
+var current_path: Array
 var able_to_move: Dictionary
 var is_started = false
 

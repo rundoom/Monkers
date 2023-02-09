@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk55ir174hyrc"]
+
+[ext_resource type="PackedScene" uid="uid://boeyps4htvolw" path="res://character.tscn" id="1_j7u11"]
+[ext_resource type="PackedScene" uid="uid://u0gfmgg02wqn" path="res://abilities/ranged.tscn" id="2_nlwwx"]
+
+[node name="BasicHero" instance=ExtResource("1_j7u11")]
+
+[node name="ObjVisual" parent="." index="0"]
+color = Color(0.356863, 1, 0, 1)
+
+[node name="Melee" parent="AbilityPool" index="2" instance=ExtResource("2_nlwwx")]
+aoe = 0
+ability_range = 1
+
+[node name="Debuff" parent="AbilityPool" index="3" instance=ExtResource("2_nlwwx")]
+aoe = 0
+ability_range = 7

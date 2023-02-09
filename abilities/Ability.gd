@@ -25,13 +25,19 @@ func mark(_point: Vector2i) -> void:
 
 
 func init_ability(point: Vector2i) -> bool:
-	if character.body < body_cost or character.spirit < spirit_cost or character.mind < mind_cost: return false
+	if character.body < body_cost * character.current_multiplier \
+	or character.spirit < spirit_cost * character.current_multiplier \
+	or character.mind < mind_cost * character.current_multiplier: return false
 	mark(point)
 	return true
 
 
 func premark_path(_target_pos: Vector2i) -> void:
 	pass
+	
+
+func end_ability():
+	character.end_ability()
 
 
 func drain_stats():

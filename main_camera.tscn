@@ -3,6 +3,5 @@
 [ext_resource type="Script" path="res://main_camera.gd" id="1_lyuvs"]
 
 [node name="MainCamera" type="Camera2D" groups=["camera"]]
-current = true
 zoom = Vector2(2, 2)
 script = ExtResource("1_lyuvs")

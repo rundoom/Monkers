@@ -4,10 +4,12 @@ class_name Character
 
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
 @onready var turn_manager = get_tree().get_first_node_in_group("turn_manager")
+@onready var is_ready := true
+@onready var occluder := $PathOccluder
 var abilities_at_turn := 0
 var current_multiplier: int:
 	get: return fibonacci(abilities_at_turn)
-		
+
 
 @export var max_body = 5:
 	set(value):
@@ -42,7 +44,9 @@ var body = max_body:
 
 var ability_key_mapping := {
 	"1" : 0,
-	"2" : 1
+	"2" : 1,
+	"3" : 2,
+	"4" : 3
 }
 
 @onready var current_ability: Ability:
@@ -97,11 +101,12 @@ func end_turn():
 
 
 func end_ability():
-	current_ability != null
+	current_ability = null
 	abilities_at_turn += 1
 
 
 func start_turn():
+	if !is_ready: await ready
 	set_process_input(true)
 	$UILayer.visible = true
 

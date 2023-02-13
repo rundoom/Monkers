@@ -26,7 +26,7 @@ func perform(_from_position: Vector2i, target_position: Vector2i):
 		$StepTimer.start()
 
 
-func mark(point: Vector2i):
+func mark(point: Vector2i, exclusion: CollisionObject2D = null):
 	is_started = false
 	move_points = ability_range
 	able_to_move = grid.make_marking(point, move_points)

@@ -50,10 +50,10 @@ func clear_marking():
 	mark_pool.release_all()
 	
 
-func make_marking_ray(point: Vector2i, distance: int = 1) -> Array[Vector2i]:
+func make_marking_ray(point: Vector2i, targeting: int, distance: int = 1, exclusion: CollisionObject2D = null) -> Array[Vector2i]:
 	pool_remarked.clear()
 	mark_pool.release_all()
-	var avaliable_points = mark_ray(point, distance)
+	var avaliable_points = mark_ray(point, distance, targeting, exclusion)
 	var color = MarkColors.RANGED
 	for it in avaliable_points: mark(it, color)
 	
@@ -107,18 +107,19 @@ func mark_move(point: Vector2i, distance: int) -> Dictionary:
 	return visited_points
 
 
-func mark_ray(point: Vector2i, distance: int, erase_center: bool = false) -> Array[Vector2i]:
+func mark_ray(point: Vector2i, distance: int, targeting: int, exclusion: CollisionObject2D = null) -> Array[Vector2i]:
 	var visited_points := [] as Array[Vector2i]
 	var cost_so_far := {}
 	var points_to_visit := [] as Array[Vector2i]
 	points_to_visit.push_back(point)
 	cost_so_far[point] = 0
 	visited_points.append(point)
-	
+
 	while !points_to_visit.is_empty():
 		var current_point = points_to_visit.pop_front()
 		for surround in get_surrounding_cells(current_point):
-			if !_intersect_filter(surround, point): continue
+			if !_intersect_filter(surround, point, exclusion): continue
+			
 			var current_cost = cost_so_far[current_point]
 			var new_cost = current_cost + 1
 			
@@ -127,7 +128,7 @@ func mark_ray(point: Vector2i, distance: int, erase_center: bool = false) -> Arr
 				cost_so_far[surround] = new_cost
 				points_to_visit.push_back(surround)
 	
-	if erase_center: visited_points.erase(point)
+	if targeting & Ability.TARGETING.myself and get_unit_in(point): visited_points.append(point)
 	return visited_points
 
 
@@ -135,17 +136,21 @@ func point_weight(point: Vector2i) -> float:
 	return get_cell_tile_data(0, point).custom_data_0
 
 
-func is_point_passable(point: Vector2i) -> bool:
+func get_unit_in(point: Vector2i) -> Node2D:
 	var interceptor_point = PhysicsPointQueryParameters2D.new()
 	interceptor_point.position = map_to_local(point)
 	interceptor_point.collision_mask = 1
+	var colliders := space_state.intersect_point(interceptor_point)
+	return colliders[0]["collider"] if !colliders.is_empty() else null
 
+
+func is_point_passable(point: Vector2i) -> bool:
 	return get_cell_atlas_coords(0, point) != TileType.EMPTY_CELL and \
-		point_weight(point) != -1 and \
-		space_state.intersect_point(interceptor_point).is_empty()
+		point_weight(point) != -1 and get_unit_in(point) == null
 
 
-func _intersect_filter(visitor: Vector2i, from: Vector2i) -> bool:
-	var ray = PhysicsRayQueryParameters2D.create(map_to_local(from), map_to_local(visitor), 1)
+func _intersect_filter(visitor: Vector2i, from: Vector2i, exclude: CollisionObject2D = null) -> bool: 
+	var excludes = [exclude.get_rid()] if exclude != null else []
+	var ray = PhysicsRayQueryParameters2D.create(map_to_local(visitor), map_to_local(from), 1, excludes)
 	var intersect = space_state.intersect_ray(ray)
 	return true if intersect.is_empty() else false

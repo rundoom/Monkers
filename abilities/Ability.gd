@@ -7,6 +7,9 @@ var character: Character
 var current_mouse_to_grid: Vector2i
 @export var ability_range: int
 
+enum TARGETING {ground=1, character=2, exclude_center=4, myself=8}
+@export_flags("ground", "character", "exclude_center", "myself") var targeting: int
+
 @export var body_cost: int
 @export var spirit_cost: int
 @export var mind_cost: int
@@ -20,7 +23,7 @@ func perform(_from_position: Vector2i, _target_position: Vector2i) -> void:
 	pass
 	
 	
-func mark(_point: Vector2i) -> void:
+func mark(_point: Vector2i, exclusion: CollisionObject2D = null) -> void:
 	pass
 
 
@@ -28,7 +31,7 @@ func init_ability(point: Vector2i) -> bool:
 	if character.body < body_cost * character.current_multiplier \
 	or character.spirit < spirit_cost * character.current_multiplier \
 	or character.mind < mind_cost * character.current_multiplier: return false
-	mark(point)
+	mark(point, character.occluder)
 	return true
 
 

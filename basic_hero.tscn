@@ -8,9 +8,17 @@
 [node name="ObjVisual" parent="." index="0"]
 color = Color(0.356863, 1, 0, 1)
 
+[node name="Ranged" parent="AbilityPool" index="1"]
+spirit_dmg = 1
+targeting = 2
+spirit_cost = 1
+
 [node name="Melee" parent="AbilityPool" index="2" instance=ExtResource("2_nlwwx")]
 aoe = 0
+body_dmg = 1
 ability_range = 1
+targeting = 2
+body_cost = 1
 
 [node name="Debuff" parent="AbilityPool" index="3" instance=ExtResource("2_nlwwx")]
 aoe = 0

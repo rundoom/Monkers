@@ -5,7 +5,7 @@ class_name Character
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
 @onready var turn_manager = get_tree().get_first_node_in_group("turn_manager")
 @onready var is_ready := true
-@onready var occluder := $PathOccluder
+@onready var occluder := $PositionPresenter
 var abilities_at_turn := 0
 var current_multiplier: int:
 	get: return fibonacci(abilities_at_turn)

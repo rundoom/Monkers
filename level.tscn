@@ -186,6 +186,7 @@ position = Vector2(470.503, 333.799)
 position = Vector2(471, 374)
 
 [node name="GridDebug" type="Label" parent="."]
+visible = false
 offset_top = -23.0
 offset_right = 78.0
 offset_bottom = 23.0

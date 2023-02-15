@@ -8,7 +8,7 @@ class_name Character
 @onready var occluder := $PositionPresenter
 
 signal multiplier_changed(val)
-var abilities_at_turn := 1:
+var abilities_at_turn := 0:
 	set(value):
 		abilities_at_turn = value
 		multiplier_changed.emit(fibonacci(value))
@@ -113,11 +113,18 @@ func start_turn():
 	if !is_ready: await ready
 	set_process_input(true)
 	$UILayer.visible = true
-	abilities_at_turn = 1
+	abilities_at_turn = 0
 
 
 func fibonacci(n):
-	return 1 if n < 2 else fibonacci(n-1) + fibonacci(n-2)
+	if n >= 0 and n <= 2:
+		return n
+	else:
+		return fibonacci(n-1) + fibonacci(n-2)
+
+func body_dmg(dmg):	if dmg > 0: body -= dmg + current_multiplier
+func mind_dmg(dmg):	if dmg > 0: mind -= dmg + current_multiplier
+func spirit_dmg(dmg): if dmg > 0: spirit -= dmg + current_multiplier
 
 
 func init_setters():

@@ -26,9 +26,9 @@ func perform(_from_position: Vector2i, target_position: Vector2i):
 	if unit == null || !unit.owner.is_in_group("character"): return
 	var target_char = unit.owner as Character
 	
-	target_char.body -= body_dmg
-	target_char.spirit -= spirit_dmg
-	target_char.mind -= mind_dmg
+	target_char.body_dmg(body_dmg)
+	target_char.spirit_dmg(spirit_dmg)
+	target_char.mind_dmg(mind_dmg)
 	
 	drain_stats()
 	

@@ -25,13 +25,13 @@ script = ExtResource("3_i1338")
 
 [node name="Ranged" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
-spirit_dmg = 1
+spirit_dmg = 4
 targeting = 2
 spirit_cost = 1
 
 [node name="Melee" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
-body_dmg = 1
+body_dmg = 5
 ability_range = 1
 targeting = 2
 body_cost = 1
@@ -54,17 +54,36 @@ polygon = PackedVector2Array(-8, 14, 8, 14, 16, 0, 8, -14, -8, -14, -16, 0)
 
 [node name="StatsHolder" parent="PositionPresenter" instance=ExtResource("7_orrsb")]
 visible = false
-offset_left = -53.2347
-offset_top = -125.169
-offset_right = 1027.77
-offset_bottom = 855.831
+offset_left = -53.5882
+offset_top = -117.391
+offset_right = 1027.42
+offset_bottom = 863.609
 scale = Vector2(0.1, 0.1)
+
+[node name="Num" parent="PositionPresenter/StatsHolder/Spirit" index="0"]
+offset_left = 262.947
+offset_top = 84.4359
+offset_right = 481.947
+offset_bottom = 262.436
+
+[node name="Num" parent="PositionPresenter/StatsHolder/Mind" index="0"]
+offset_left = 141.981
+offset_top = 264.654
+offset_right = 360.981
+offset_bottom = 442.654
+
+[node name="Multiplier" parent="PositionPresenter/StatsHolder" index="3"]
+offset_left = 416.222
+offset_top = 517.305
+offset_right = 635.222
+offset_bottom = 695.305
 
 [connection signal="body_changed" from="." to="PositionPresenter/StatsHolder/Body" method="set_value"]
 [connection signal="max_body_changed" from="." to="PositionPresenter/StatsHolder/Body" method="set_max"]
 [connection signal="max_mind_changed" from="." to="PositionPresenter/StatsHolder/Mind" method="set_max"]
 [connection signal="max_spirit_changed" from="." to="PositionPresenter/StatsHolder/Spirit" method="set_max"]
 [connection signal="mind_changed" from="." to="PositionPresenter/StatsHolder/Mind" method="set_value"]
+[connection signal="multiplier_changed" from="." to="PositionPresenter/StatsHolder/Multiplier" method="set_text_convert"]
 [connection signal="spirit_changed" from="." to="PositionPresenter/StatsHolder/Spirit" method="set_value"]
 [connection signal="child_entered_tree" from="AbilityPool" to="AbilityPool" method="_on_child_entered_tree" flags=18]
 [connection signal="mouse_entered" from="PositionPresenter" to="PositionPresenter/StatsHolder" method="show"]

@@ -6,7 +6,12 @@ class_name Character
 @onready var turn_manager = get_tree().get_first_node_in_group("turn_manager")
 @onready var is_ready := true
 @onready var occluder := $PositionPresenter
-var abilities_at_turn := 0
+
+signal multiplier_changed(val)
+var abilities_at_turn := 1:
+	set(value):
+		abilities_at_turn = value
+		multiplier_changed.emit(fibonacci(value))
 
 var current_multiplier: int:
 	get: return fibonacci(abilities_at_turn)
@@ -96,7 +101,6 @@ func end_turn():
 	grid.clear_marking()
 	if current_ability != null: current_ability.set_process_input(false)
 	current_ability = null
-	abilities_at_turn = 0
 	turn_manager.change_turn()
 
 
@@ -109,6 +113,7 @@ func start_turn():
 	if !is_ready: await ready
 	set_process_input(true)
 	$UILayer.visible = true
+	abilities_at_turn = 1
 
 
 func fibonacci(n):
@@ -122,3 +127,4 @@ func init_setters():
 	spirit = spirit
 	max_mind = max_mind
 	mind = mind
+	abilities_at_turn = abilities_at_turn

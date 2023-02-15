@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://clsqf34vf70l6"]
+[gd_scene load_steps=7 format=3 uid="uid://clsqf34vf70l6"]
 
 [ext_resource type="Texture2D" uid="uid://cs2dhrp836mou" path="res://stats/stathold.png" id="1_45pdp"]
 [ext_resource type="Texture2D" uid="uid://djnwej8v20qvc" path="res://stats/body.png" id="2_h6oay"]
 [ext_resource type="Texture2D" uid="uid://b2kq2x5j1uahk" path="res://stats/spirit.png" id="3_v7vu7"]
+[ext_resource type="Script" path="res://stats/ValueLabel.gd" id="3_vqa6h"]
 [ext_resource type="Texture2D" uid="uid://bdj48fh0nesot" path="res://stats/mind.png" id="4_uidtq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bejdo"]
@@ -37,6 +38,7 @@ offset_bottom = 241.17
 text = "150"
 label_settings = SubResource("LabelSettings_bejdo")
 horizontal_alignment = 1
+script = ExtResource("3_vqa6h")
 
 [node name="Spirit" type="TextureProgressBar" parent="."]
 show_behind_parent = true
@@ -51,6 +53,7 @@ fill_mode = 3
 texture_progress = ExtResource("3_v7vu7")
 
 [node name="Num" type="Label" parent="Spirit"]
+layout_mode = 0
 offset_left = 260.251
 offset_top = 84.7457
 offset_right = 479.251
@@ -59,6 +62,7 @@ rotation = 2.12871
 text = "150"
 label_settings = SubResource("LabelSettings_bejdo")
 horizontal_alignment = 1
+script = ExtResource("3_vqa6h")
 
 [node name="Mind" type="TextureProgressBar" parent="."]
 show_behind_parent = true
@@ -73,6 +77,7 @@ fill_mode = 3
 texture_progress = ExtResource("4_uidtq")
 
 [node name="Num" type="Label" parent="Mind"]
+layout_mode = 0
 offset_left = 150.151
 offset_top = 280.075
 offset_right = 369.151
@@ -81,7 +86,20 @@ rotation = -2.08529
 text = "150"
 label_settings = SubResource("LabelSettings_bejdo")
 horizontal_alignment = 1
+script = ExtResource("3_vqa6h")
 
-[connection signal="value_changed" from="Body" to="Body/Num" method="set_text"]
-[connection signal="value_changed" from="Spirit" to="Spirit/Num" method="set_text"]
-[connection signal="value_changed" from="Mind" to="Mind/Num" method="set_text"]
+[node name="Multiplier" type="Label" parent="."]
+layout_mode = 0
+offset_left = 419.542
+offset_top = 518.732
+offset_right = 638.542
+offset_bottom = 696.732
+rotation = -0.000146166
+text = "0"
+label_settings = SubResource("LabelSettings_bejdo")
+horizontal_alignment = 1
+script = ExtResource("3_vqa6h")
+
+[connection signal="value_changed" from="Body" to="Body/Num" method="set_text_convert"]
+[connection signal="value_changed" from="Spirit" to="Spirit/Num" method="set_text_convert"]
+[connection signal="value_changed" from="Mind" to="Mind/Num" method="set_text_convert"]

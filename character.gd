@@ -31,7 +31,7 @@ signal max_mind_changed(val)
 	
 @onready var body: int = max_body:
 	set(value):
-		body = value
+		body = clamp(value, 0, 999)
 		body_changed.emit(value)
 		
 @export var max_spirit: int:
@@ -41,7 +41,7 @@ signal max_mind_changed(val)
 	
 @onready var spirit: int = max_spirit:
 	set(value):
-		spirit = value
+		spirit = clamp(value, 0, 999)
 		spirit_changed.emit(value)
 		
 @export var max_mind: int:
@@ -51,7 +51,7 @@ signal max_mind_changed(val)
 	
 @onready var mind: int = max_mind:
 	set(value):
-		mind = value
+		mind = clamp(value, 0, 999)
 		mind_changed.emit(value)
 
 var ability_key_mapping := {"1":0,"2":1,"3":2,"4":3}

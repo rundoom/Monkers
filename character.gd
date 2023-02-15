@@ -7,57 +7,61 @@ class_name Character
 @onready var is_ready := true
 @onready var occluder := $PositionPresenter
 var abilities_at_turn := 0
+
 var current_multiplier: int:
 	get: return fibonacci(abilities_at_turn)
 
+signal body_changed(val)
+signal spirit_changed(val)
+signal mind_changed(val)
+
+signal max_body_changed(val)
+signal max_spirit_changed(val)
+signal max_mind_changed(val)
 
 @export var max_body = 5:
 	set(value):
 		max_body = value
-		%Body.max_value = value
+		max_body_changed.emit(value)
 	
 var body = max_body:
 	set(value):
 		body = value
-		%Body.value = value
+		body_changed.emit(value)
 		
 @export var max_spirit = 5:
 	set(value):
 		max_spirit = value
-		%Spirit.max_value = value
+		max_spirit_changed.emit(value)
 	
 @export var spirit = max_spirit:
 	set(value):
 		spirit = value
-		%Spirit.value = value
+		spirit_changed.emit(value)
 		
 @export var max_mind = 5:
 	set(value):
 		max_mind = value
-		%Mind.max_value = value
+		max_mind_changed.emit(value)
 	
 @export var mind = max_mind:
 	set(value):
 		mind = value
-		%Mind.value = value
+		mind_changed.emit(value)
 
-
-var ability_key_mapping := {
-	"1" : 0,
-	"2" : 1,
-	"3" : 2,
-	"4" : 3
-}
+var ability_key_mapping := {"1":0,"2":1,"3":2,"4":3}
 
 @onready var current_ability: Ability:
 	set(new_ability):
 		var is_marked: bool = false
-		if new_ability != null: is_marked = mark_ability(new_ability)
+		if new_ability != null:
+			is_marked = mark_ability(new_ability)
+
+		if current_ability != null: current_ability.set_process_input(false)
 		
-		if is_marked:
-			if current_ability != null: current_ability.set_process_input(false)
-			new_ability.set_process_input(true)
-			current_ability = new_ability
+		if is_marked: new_ability.set_process_input(true)
+		
+		current_ability = new_ability
 		
 
 func _ready() -> void:
@@ -102,6 +106,7 @@ func end_turn():
 
 func end_ability():
 	current_ability = null
+	grid.clear_marking()
 	abilities_at_turn += 1
 
 

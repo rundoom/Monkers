@@ -32,5 +32,5 @@ func perform(_from_position: Vector2i, target_position: Vector2i):
 	
 	drain_stats()
 	
-	
+	end_ability()
 	

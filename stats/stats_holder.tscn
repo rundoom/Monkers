@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://clsqf34vf70l6"]
+
+[ext_resource type="Texture2D" uid="uid://cs2dhrp836mou" path="res://stats/stathold.png" id="1_45pdp"]
+[ext_resource type="Texture2D" uid="uid://djnwej8v20qvc" path="res://stats/body.png" id="2_h6oay"]
+[ext_resource type="Texture2D" uid="uid://b2kq2x5j1uahk" path="res://stats/spirit.png" id="3_v7vu7"]
+[ext_resource type="Texture2D" uid="uid://bdj48fh0nesot" path="res://stats/mind.png" id="4_uidtq"]
+
+[node name="StatsHolder" type="TextureRect"]
+offset_right = 1080.0
+offset_bottom = 981.0
+texture = ExtResource("1_45pdp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Body" type="TextureProgressBar" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 395.935
+offset_top = 150.357
+offset_right = 1531.93
+offset_bottom = 1189.36
+value = 50.0
+fill_mode = 3
+texture_progress = ExtResource("2_h6oay")
+
+[node name="Spirit" type="TextureProgressBar" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 210.573
+offset_top = 964.8
+offset_right = 1346.57
+offset_bottom = 2003.8
+rotation = -2.13171
+value = 50.0
+fill_mode = 3
+texture_progress = ExtResource("3_v7vu7")
+
+[node name="Mind" type="TextureProgressBar" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 1011.97
+offset_top = 707.064
+offset_right = 2147.97
+offset_bottom = 1746.06
+rotation = 2.083
+value = 50.0
+fill_mode = 3
+texture_progress = ExtResource("4_uidtq")

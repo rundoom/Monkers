@@ -2,8 +2,8 @@ extends StaticBody2D
 
 
 func _on_mouse_entered() -> void:
-	$StatVisualizer.show()
+	$StatsHolder.show()
 
 
 func _on_mouse_exited() -> void:
-	$StatVisualizer.hide()
+	$StatsHolder.hide()

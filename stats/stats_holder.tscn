@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://clsqf34vf70l6"]
+[gd_scene load_steps=6 format=3 uid="uid://clsqf34vf70l6"]
 
 [ext_resource type="Texture2D" uid="uid://cs2dhrp836mou" path="res://stats/stathold.png" id="1_45pdp"]
 [ext_resource type="Texture2D" uid="uid://djnwej8v20qvc" path="res://stats/body.png" id="2_h6oay"]
 [ext_resource type="Texture2D" uid="uid://b2kq2x5j1uahk" path="res://stats/spirit.png" id="3_v7vu7"]
 [ext_resource type="Texture2D" uid="uid://bdj48fh0nesot" path="res://stats/mind.png" id="4_uidtq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bejdo"]
+font_size = 128
+outline_size = 64
+outline_color = Color(0, 0, 0, 1)
 
 [node name="StatsHolder" type="TextureRect"]
 offset_right = 1080.0
@@ -23,6 +28,16 @@ value = 50.0
 fill_mode = 3
 texture_progress = ExtResource("2_h6oay")
 
+[node name="Num" type="Label" parent="Body"]
+layout_mode = 0
+offset_left = 33.6517
+offset_top = 63.1698
+offset_right = 252.652
+offset_bottom = 241.17
+text = "150"
+label_settings = SubResource("LabelSettings_bejdo")
+horizontal_alignment = 1
+
 [node name="Spirit" type="TextureProgressBar" parent="."]
 show_behind_parent = true
 layout_mode = 0
@@ -35,6 +50,16 @@ value = 50.0
 fill_mode = 3
 texture_progress = ExtResource("3_v7vu7")
 
+[node name="Num" type="Label" parent="Spirit"]
+offset_left = 260.251
+offset_top = 84.7457
+offset_right = 479.251
+offset_bottom = 262.746
+rotation = 2.12871
+text = "150"
+label_settings = SubResource("LabelSettings_bejdo")
+horizontal_alignment = 1
+
 [node name="Mind" type="TextureProgressBar" parent="."]
 show_behind_parent = true
 layout_mode = 0
@@ -46,3 +71,17 @@ rotation = 2.083
 value = 50.0
 fill_mode = 3
 texture_progress = ExtResource("4_uidtq")
+
+[node name="Num" type="Label" parent="Mind"]
+offset_left = 150.151
+offset_top = 280.075
+offset_right = 369.151
+offset_bottom = 458.075
+rotation = -2.08529
+text = "150"
+label_settings = SubResource("LabelSettings_bejdo")
+horizontal_alignment = 1
+
+[connection signal="value_changed" from="Body" to="Body/Num" method="set_text"]
+[connection signal="value_changed" from="Spirit" to="Spirit/Num" method="set_text"]
+[connection signal="value_changed" from="Mind" to="Mind/Num" method="set_text"]

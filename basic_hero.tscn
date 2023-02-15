@@ -10,6 +10,9 @@
 
 [node name="BasicHero" type="Node2D" groups=["character"]]
 script = ExtResource("1_yk8tt")
+max_body = 20
+max_spirit = 20
+max_mind = 20
 
 [node name="ObjVisual" type="Polygon2D" parent="."]
 color = Color(0.356863, 1, 0, 1)

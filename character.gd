@@ -19,32 +19,32 @@ signal max_body_changed(val)
 signal max_spirit_changed(val)
 signal max_mind_changed(val)
 
-@export var max_body = 5:
+@export var max_body: int:
 	set(value):
 		max_body = value
 		max_body_changed.emit(value)
 	
-var body = max_body:
+@onready var body: int = max_body:
 	set(value):
 		body = value
 		body_changed.emit(value)
 		
-@export var max_spirit = 5:
+@export var max_spirit: int:
 	set(value):
 		max_spirit = value
 		max_spirit_changed.emit(value)
 	
-@export var spirit = max_spirit:
+@onready var spirit: int = max_spirit:
 	set(value):
 		spirit = value
 		spirit_changed.emit(value)
 		
-@export var max_mind = 5:
+@export var max_mind: int:
 	set(value):
 		max_mind = value
 		max_mind_changed.emit(value)
 	
-@export var mind = max_mind:
+@onready var mind: int = max_mind:
 	set(value):
 		mind = value
 		mind_changed.emit(value)
@@ -54,14 +54,10 @@ var ability_key_mapping := {"1":0,"2":1,"3":2,"4":3}
 @onready var current_ability: Ability:
 	set(new_ability):
 		var is_marked: bool = false
-		if new_ability != null:
-			is_marked = mark_ability(new_ability)
-
+		if new_ability != null:	is_marked = mark_ability(new_ability)
 		if current_ability != null: current_ability.set_process_input(false)
-		
 		if is_marked: new_ability.set_process_input(true)
-		
-		current_ability = new_ability
+		if is_marked or new_ability == null: current_ability = new_ability
 		
 
 func _ready() -> void:
@@ -107,7 +103,6 @@ func end_turn():
 func end_ability():
 	current_ability = null
 	grid.clear_marking()
-	abilities_at_turn += 1
 
 
 func start_turn():

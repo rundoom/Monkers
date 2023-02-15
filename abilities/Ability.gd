@@ -44,9 +44,10 @@ func end_ability():
 
 
 func drain_stats():
-	character.body -= body_cost
-	character.spirit -= spirit_cost
-	character.mind -= mind_cost
+	character.body -= body_cost * character.current_multiplier
+	character.spirit -= spirit_cost * character.current_multiplier
+	character.mind -= mind_cost * character.current_multiplier
+	character.abilities_at_turn += 1
 
 
 func _input(event: InputEvent) -> void:

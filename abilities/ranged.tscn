@@ -1,12 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://u0gfmgg02wqn"]
+[gd_scene load_steps=6 format=3 uid="uid://u0gfmgg02wqn"]
 
 [ext_resource type="PackedScene" uid="uid://0uyakg8vaite" path="res://abilities/ability.tscn" id="1_5hqq5"]
 [ext_resource type="Script" path="res://Ranged.gd" id="2_k45v3"]
+[ext_resource type="Script" path="res://StatHolder.gd" id="3_i1iaq"]
+
+[sub_resource type="Resource" id="Resource_2wnaw"]
+resource_local_to_scene = true
+script = ExtResource("3_i1iaq")
+mind = 0
+body = 0
+spirit = 0
+
+[sub_resource type="Resource" id="Resource_qwexw"]
+resource_local_to_scene = true
+script = ExtResource("3_i1iaq")
+mind = 0
+body = 0
+spirit = 0
 
 [node name="Ranged" instance=ExtResource("1_5hqq5")]
 script = ExtResource("2_k45v3")
 aoe = 4
-body_dmg = 0
-spirit_dmg = 0
-mind_dmg = 0
+dmg = SubResource("Resource_2wnaw")
 ability_range = 5
+costs = SubResource("Resource_qwexw")

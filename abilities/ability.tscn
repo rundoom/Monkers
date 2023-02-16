@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://0uyakg8vaite"]
+[gd_scene load_steps=4 format=3 uid="uid://0uyakg8vaite"]
 
 [ext_resource type="Script" path="res://abilities/Ability.gd" id="1_f6lie"]
+[ext_resource type="Script" path="res://StatHolder.gd" id="2_2ai23"]
+
+[sub_resource type="Resource" id="Resource_7nv3v"]
+resource_local_to_scene = true
+script = ExtResource("2_2ai23")
+mind = 0
+body = 0
+spirit = 0
 
 [node name="Ability" type="Node2D"]
 script = ExtResource("1_f6lie")
+costs = SubResource("Resource_7nv3v")

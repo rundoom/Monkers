@@ -1,17 +1,81 @@
-[gd_scene load_steps=7 format=3 uid="uid://bk55ir174hyrc"]
+[gd_scene load_steps=17 format=3 uid="uid://bk55ir174hyrc"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_yk8tt"]
 [ext_resource type="Script" path="res://ObjVisual.gd" id="2_3vm3s"]
+[ext_resource type="Script" path="res://StatHolder.gd" id="2_bkena"]
 [ext_resource type="PackedScene" uid="uid://u0gfmgg02wqn" path="res://abilities/ranged.tscn" id="2_nlwwx"]
 [ext_resource type="Script" path="res://AbilityPool.gd" id="3_i1338"]
 [ext_resource type="PackedScene" uid="uid://b804jqfif2qko" path="res://abilities/move.tscn" id="4_d6du7"]
 [ext_resource type="PackedScene" uid="uid://clsqf34vf70l6" path="res://stats/stats_holder.tscn" id="7_orrsb"]
 
+[sub_resource type="Resource" id="Resource_fxmhd"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 20
+body = 20
+spirit = 20
+
+[sub_resource type="Resource" id="Resource_u3yh2"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 20
+body = 20
+spirit = 20
+
+[sub_resource type="Resource" id="Resource_rfgjp"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 1
+body = 1
+spirit = 1
+
+[sub_resource type="Resource" id="Resource_in6ug"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 0
+body = 0
+spirit = 4
+
+[sub_resource type="Resource" id="Resource_kh1bq"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 0
+body = 0
+spirit = 1
+
+[sub_resource type="Resource" id="Resource_mc55h"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 0
+body = 6
+spirit = 0
+
+[sub_resource type="Resource" id="Resource_ltpug"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 0
+body = 1
+spirit = 0
+
+[sub_resource type="Resource" id="Resource_vvdf7"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 0
+body = 0
+spirit = 0
+
+[sub_resource type="Resource" id="Resource_2tspc"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 1
+body = 0
+spirit = 0
+
 [node name="BasicHero" type="Node2D" groups=["character"]]
 script = ExtResource("1_yk8tt")
-max_body = 20
-max_spirit = 20
-max_mind = 20
+max_stats = SubResource("Resource_fxmhd")
+current_stats = SubResource("Resource_u3yh2")
+is_max_stats = true
 
 [node name="ObjVisual" type="Polygon2D" parent="."]
 color = Color(0.356863, 1, 0, 1)
@@ -22,23 +86,30 @@ script = ExtResource("2_3vm3s")
 script = ExtResource("3_i1338")
 
 [node name="Move" parent="AbilityPool" instance=ExtResource("4_d6du7")]
+costs = SubResource("Resource_rfgjp")
 
 [node name="Ranged" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
-spirit_dmg = 4
+dmg = SubResource("Resource_in6ug")
 targeting = 2
-spirit_cost = 1
+costs = SubResource("Resource_kh1bq")
 
 [node name="Melee" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
-body_dmg = 5
+dmg = SubResource("Resource_mc55h")
 ability_range = 1
 targeting = 2
-body_cost = 1
+costs = SubResource("Resource_ltpug")
 
 [node name="Debuff" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
+dmg = SubResource("Resource_vvdf7")
 ability_range = 7
+targeting = 2
+costs = SubResource("Resource_2tspc")
+
+[node name="EffectPool" type="Node" parent="."]
+script = ExtResource("3_i1338")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -86,6 +157,7 @@ offset_bottom = 695.305
 [connection signal="multiplier_changed" from="." to="PositionPresenter/StatsHolder/Multiplier" method="set_text_convert"]
 [connection signal="spirit_changed" from="." to="PositionPresenter/StatsHolder/Spirit" method="set_value"]
 [connection signal="child_entered_tree" from="AbilityPool" to="AbilityPool" method="_on_child_entered_tree" flags=18]
+[connection signal="child_entered_tree" from="EffectPool" to="EffectPool" method="_on_child_entered_tree"]
 [connection signal="mouse_entered" from="PositionPresenter" to="PositionPresenter/StatsHolder" method="show"]
 [connection signal="mouse_exited" from="PositionPresenter" to="PositionPresenter/StatsHolder" method="hide"]
 

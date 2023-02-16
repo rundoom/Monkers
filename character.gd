@@ -24,35 +24,9 @@ signal max_body_changed(val)
 signal max_spirit_changed(val)
 signal max_mind_changed(val)
 
-@export var max_body: int:
-	set(value):
-		max_body = value
-		max_body_changed.emit(value)
-	
-@onready var body: int = max_body:
-	set(value):
-		body = clamp(value, 0, 999)
-		body_changed.emit(value)
-		
-@export var max_spirit: int:
-	set(value):
-		max_spirit = value
-		max_spirit_changed.emit(value)
-	
-@onready var spirit: int = max_spirit:
-	set(value):
-		spirit = clamp(value, 0, 999)
-		spirit_changed.emit(value)
-		
-@export var max_mind: int:
-	set(value):
-		max_mind = value
-		max_mind_changed.emit(value)
-	
-@onready var mind: int = max_mind:
-	set(value):
-		mind = clamp(value, 0, 999)
-		mind_changed.emit(value)
+@export var max_stats: StatHolder
+@export var current_stats: StatHolder
+@export var is_max_stats: bool
 
 var ability_key_mapping := {"1":0,"2":1,"3":2,"4":3}
 
@@ -69,10 +43,16 @@ func _ready() -> void:
 	var grid_pos = grid.local_to_map(grid.to_local(global_position))
 	var precise_position = grid.map_to_local(grid_pos)
 	global_position = grid.to_global(precise_position)
-	init_setters()
+	init_connections()
+	if is_max_stats: current_stats.equate(max_stats)
+	abilities_at_turn = abilities_at_turn
 	
 	set_process_input(false)
 	$UILayer.visible = false
+
+
+func test_sig(vals):
+	print(vals)
 
 
 func _input(event: InputEvent) -> void:
@@ -122,16 +102,11 @@ func fibonacci(n):
 	else:
 		return fibonacci(n-1) + fibonacci(n-2)
 
-func body_dmg(dmg):	if dmg > 0: body -= dmg + current_multiplier
-func mind_dmg(dmg):	if dmg > 0: mind -= dmg + current_multiplier
-func spirit_dmg(dmg): if dmg > 0: spirit -= dmg + current_multiplier
+
+func recieve_dmg(dmg: StatHolder):
+	current_stats.subtract_above_zero(dmg.add_int_to_non_zero_dup(current_multiplier))
 
 
-func init_setters():
-	max_body = max_body
-	body = body
-	max_spirit = max_spirit
-	spirit = spirit
-	max_mind = max_mind
-	mind = mind
-	abilities_at_turn = abilities_at_turn
+func init_connections():
+	current_stats.retarget_connections(mind_changed, body_changed, spirit_changed)
+	max_stats.retarget_connections(max_mind_changed, max_body_changed, max_spirit_changed)

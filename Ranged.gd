@@ -3,9 +3,8 @@ extends Ability
 
 var able_to_shoot: Array[Vector2i]
 @export var aoe: int
-@export var body_dmg: int
-@export var spirit_dmg: int
-@export var mind_dmg: int
+
+@export var dmg: StatHolder
 
 
 func mark(point: Vector2i, exclusion: CollisionObject2D = null):
@@ -26,9 +25,7 @@ func perform(_from_position: Vector2i, target_position: Vector2i):
 	if unit == null || !unit.owner.is_in_group("character"): return
 	var target_char = unit.owner as Character
 	
-	target_char.body_dmg(body_dmg)
-	target_char.spirit_dmg(spirit_dmg)
-	target_char.mind_dmg(mind_dmg)
+	target_char.recieve_dmg(dmg)
 	
 	drain_stats()
 	

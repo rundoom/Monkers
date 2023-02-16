@@ -10,9 +10,7 @@ var current_mouse_to_grid: Vector2i
 enum TARGETING {ground=1, character=2, exclude_center=4, myself=8}
 @export_flags("ground", "character", "exclude_center", "myself") var targeting: int
 
-@export var body_cost: int
-@export var spirit_cost: int
-@export var mind_cost: int
+@export var costs: StatHolder
 
 
 func _ready() -> void:
@@ -28,9 +26,7 @@ func mark(_point: Vector2i, exclusion: CollisionObject2D = null) -> void:
 
 
 func init_ability(point: Vector2i) -> bool:
-	if character.body < body_cost * character.current_multiplier \
-	or character.spirit < spirit_cost * character.current_multiplier \
-	or character.mind < mind_cost * character.current_multiplier: return false
+	if character.current_stats.is_lt(costs.multiply_int_dup(character.current_multiplier)): return false
 	mark(point, character.occluder)
 	return true
 
@@ -44,9 +40,7 @@ func end_ability():
 
 
 func drain_stats():
-	character.body -= body_cost * character.current_multiplier
-	character.spirit -= spirit_cost * character.current_multiplier
-	character.mind -= mind_cost * character.current_multiplier
+	character.current_stats.subtract(costs.multiply_int_dup(character.current_multiplier))
 	character.abilities_at_turn += 1
 
 

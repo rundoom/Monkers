@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ba1ngs6plfda2"]
+[gd_scene load_steps=24 format=3 uid="uid://ba1ngs6plfda2"]
 
 [ext_resource type="Texture2D" uid="uid://baq17yfmbu002" path="res://fantasyhextiles_v3_borderless.png" id="1_icibe"]
 [ext_resource type="Script" path="res://character.gd" id="2_8bu3e"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dwb0223wlr1ll" path="res://turn_manager.tscn" id="6_vk7l7"]
 [ext_resource type="PackedScene" uid="uid://ckpm471k8sx0e" path="res://main_camera.tscn" id="7_mc5fo"]
 [ext_resource type="PackedScene" uid="uid://bk55ir174hyrc" path="res://basic_hero.tscn" id="7_nesc8"]
+[ext_resource type="Script" path="res://StatHolder.gd" id="10_jnabu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eu47c"]
 resource_name = "Floor"
@@ -196,6 +197,34 @@ custom_data_layer_0/type = 3
 sources/1 = SubResource("TileSetAtlasSource_eu47c")
 sources/2 = SubResource("TileSetScenesCollectionSource_gr075")
 
+[sub_resource type="Resource" id="Resource_psjuh"]
+resource_local_to_scene = true
+script = ExtResource("10_jnabu")
+mind = 20
+body = 20
+spirit = 20
+
+[sub_resource type="Resource" id="Resource_1my26"]
+resource_local_to_scene = true
+script = ExtResource("10_jnabu")
+mind = 20
+body = 20
+spirit = 20
+
+[sub_resource type="Resource" id="Resource_m0jgi"]
+resource_local_to_scene = true
+script = ExtResource("10_jnabu")
+mind = 20
+body = 20
+spirit = 20
+
+[sub_resource type="Resource" id="Resource_tmpw0"]
+resource_local_to_scene = true
+script = ExtResource("10_jnabu")
+mind = 20
+body = 20
+spirit = 20
+
 [node name="Level" type="TileMap" groups=["grid"]]
 texture_filter = 1
 tile_set = SubResource("TileSet_rcybs")
@@ -216,12 +245,13 @@ script = ExtResource("3_6w8ba")
 
 [node name="BasicHero" parent="." instance=ExtResource("7_nesc8")]
 position = Vector2(470.503, 333.799)
-
-[node name="ObjVisual" parent="BasicHero" index="0"]
-color = Color(0.356863, 1, 0.976471, 1)
+max_stats = SubResource("Resource_psjuh")
+current_stats = SubResource("Resource_1my26")
 
 [node name="BasicHero2" parent="." instance=ExtResource("7_nesc8")]
 position = Vector2(471, 374)
+max_stats = SubResource("Resource_m0jgi")
+current_stats = SubResource("Resource_tmpw0")
 
 [node name="GridDebug" type="Label" parent="."]
 visible = false
@@ -236,6 +266,3 @@ script = ExtResource("4_sewjx")
 [node name="MainCamera" parent="." instance=ExtResource("7_mc5fo")]
 
 [node name="MarkerHolder" type="Node2D" parent="."]
-
-[editable path="BasicHero"]
-[editable path="BasicHero/PositionPresenter/StatsHolder"]

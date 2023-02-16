@@ -6,9 +6,6 @@
 [node name="Move" instance=ExtResource("1_i0nbs")]
 script = ExtResource("2_afy6k")
 ability_range = 8
-body_cost = 1
-spirit_cost = 1
-mind_cost = 1
 
 [node name="StepTimer" type="Timer" parent="." index="0"]
 process_callback = 0

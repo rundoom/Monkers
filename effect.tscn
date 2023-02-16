@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjkf8e7wyt41h"]
+
+[ext_resource type="Script" path="res://Effect.gd" id="1_fq0fq"]
+[ext_resource type="Script" path="res://StatHolder.gd" id="2_up3t6"]
+
+[sub_resource type="Resource" id="Resource_4mtgc"]
+script = ExtResource("2_up3t6")
+mind = 0
+body = 0
+spirit = 0
+
+[node name="Effect" type="Node2D"]
+script = ExtResource("1_fq0fq")
+stats_changed = SubResource("Resource_4mtgc")

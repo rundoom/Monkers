@@ -20,6 +20,6 @@ func change_turn():
 
 
 func sort_by_mind(a: Character, b: Character) -> bool:
-	if a.mind < b.mind: return true
+	if a.current_stats.mind < b.current_stats.mind: return true
 	else: return false
 	

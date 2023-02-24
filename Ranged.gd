@@ -26,6 +26,10 @@ func perform(_from_position: Vector2i, target_position: Vector2i):
 	var target_char = unit.owner as Character
 	
 	target_char.recieve_dmg(dmg)
+	for effect in $Effects.get_children():
+		var dup = effect.create_instance()
+		dup.get_parent().remove_child(dup)
+		target_char.effects.add_child(dup)
 	
 	drain_stats()
 	

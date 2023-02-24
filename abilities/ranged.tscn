@@ -24,3 +24,5 @@ aoe = 4
 dmg = SubResource("Resource_2wnaw")
 ability_range = 5
 costs = SubResource("Resource_qwexw")
+
+[node name="Effects" type="Node" parent="." index="0"]

@@ -6,6 +6,8 @@ class_name Character
 @onready var turn_manager = get_tree().get_first_node_in_group("turn_manager")
 @onready var is_ready := true
 @onready var occluder := $PositionPresenter
+@onready var effects := $EffectPool
+
 
 signal multiplier_changed(val)
 var abilities_at_turn := 0:
@@ -93,6 +95,8 @@ func start_turn():
 	if !is_ready: await ready
 	set_process_input(true)
 	$UILayer.visible = true
+	for effect in $EffectPool.get_children():
+		effect.apply_effect()
 	abilities_at_turn = 0
 
 

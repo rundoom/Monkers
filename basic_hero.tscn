@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bk55ir174hyrc"]
+[gd_scene load_steps=18 format=3 uid="uid://bk55ir174hyrc"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_yk8tt"]
 [ext_resource type="Script" path="res://ObjVisual.gd" id="2_3vm3s"]
@@ -22,52 +22,59 @@ mind = 20
 body = 20
 spirit = 20
 
-[sub_resource type="Resource" id="Resource_rfgjp"]
+[sub_resource type="Resource" id="Resource_pqs7x"]
 resource_local_to_scene = true
 script = ExtResource("2_bkena")
 mind = 1
 body = 1
 spirit = 1
 
-[sub_resource type="Resource" id="Resource_in6ug"]
+[sub_resource type="Resource" id="Resource_jdcuk"]
 resource_local_to_scene = true
 script = ExtResource("2_bkena")
 mind = 0
 body = 0
 spirit = 4
 
-[sub_resource type="Resource" id="Resource_kh1bq"]
+[sub_resource type="Resource" id="Resource_aom7w"]
 resource_local_to_scene = true
 script = ExtResource("2_bkena")
 mind = 0
 body = 0
 spirit = 1
 
-[sub_resource type="Resource" id="Resource_mc55h"]
+[sub_resource type="Resource" id="Resource_6nv8r"]
 resource_local_to_scene = true
 script = ExtResource("2_bkena")
 mind = 0
 body = 6
 spirit = 0
 
-[sub_resource type="Resource" id="Resource_ltpug"]
+[sub_resource type="Resource" id="Resource_ukbar"]
 resource_local_to_scene = true
 script = ExtResource("2_bkena")
 mind = 0
 body = 1
 spirit = 0
 
-[sub_resource type="Resource" id="Resource_vvdf7"]
+[sub_resource type="Resource" id="Resource_hwcyj"]
 resource_local_to_scene = true
 script = ExtResource("2_bkena")
 mind = 0
 body = 0
 spirit = 0
 
-[sub_resource type="Resource" id="Resource_2tspc"]
+[sub_resource type="Resource" id="Resource_tlqk4"]
 resource_local_to_scene = true
 script = ExtResource("2_bkena")
 mind = 1
+body = 0
+spirit = 0
+
+[sub_resource type="Resource" id="Resource_q1pb3"]
+resource_local_to_scene = true
+script = ExtResource("2_bkena")
+mind = 5
 body = 0
 spirit = 0
 
@@ -86,27 +93,31 @@ script = ExtResource("2_3vm3s")
 script = ExtResource("3_i1338")
 
 [node name="Move" parent="AbilityPool" instance=ExtResource("4_d6du7")]
-costs = SubResource("Resource_rfgjp")
+costs = SubResource("Resource_pqs7x")
 
 [node name="Ranged" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
-dmg = SubResource("Resource_in6ug")
+dmg = SubResource("Resource_jdcuk")
 targeting = 2
-costs = SubResource("Resource_kh1bq")
+costs = SubResource("Resource_aom7w")
 
 [node name="Melee" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
-dmg = SubResource("Resource_mc55h")
+dmg = SubResource("Resource_6nv8r")
 ability_range = 1
 targeting = 2
-costs = SubResource("Resource_ltpug")
+costs = SubResource("Resource_ukbar")
 
 [node name="Debuff" parent="AbilityPool" instance=ExtResource("2_nlwwx")]
 aoe = 0
-dmg = SubResource("Resource_vvdf7")
+dmg = SubResource("Resource_hwcyj")
 ability_range = 7
 targeting = 2
-costs = SubResource("Resource_2tspc")
+costs = SubResource("Resource_tlqk4")
+
+[node name="Effect" parent="AbilityPool/Debuff/Effects" index="0" instance_placeholder="res://effect.tscn"]
+duration = 2
+stats_changed = SubResource("Resource_q1pb3")
 
 [node name="EffectPool" type="Node" parent="."]
 script = ExtResource("3_i1338")
@@ -161,4 +172,5 @@ offset_bottom = 695.305
 [connection signal="mouse_entered" from="PositionPresenter" to="PositionPresenter/StatsHolder" method="show"]
 [connection signal="mouse_exited" from="PositionPresenter" to="PositionPresenter/StatsHolder" method="hide"]
 
+[editable path="AbilityPool/Debuff"]
 [editable path="PositionPresenter/StatsHolder"]

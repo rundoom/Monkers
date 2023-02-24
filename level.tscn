@@ -197,28 +197,28 @@ custom_data_layer_0/type = 3
 sources/1 = SubResource("TileSetAtlasSource_eu47c")
 sources/2 = SubResource("TileSetScenesCollectionSource_gr075")
 
-[sub_resource type="Resource" id="Resource_psjuh"]
+[sub_resource type="Resource" id="Resource_4h1k5"]
 resource_local_to_scene = true
 script = ExtResource("10_jnabu")
 mind = 20
 body = 20
 spirit = 20
 
-[sub_resource type="Resource" id="Resource_1my26"]
+[sub_resource type="Resource" id="Resource_1gehp"]
 resource_local_to_scene = true
 script = ExtResource("10_jnabu")
 mind = 20
 body = 20
 spirit = 20
 
-[sub_resource type="Resource" id="Resource_m0jgi"]
+[sub_resource type="Resource" id="Resource_ukf23"]
 resource_local_to_scene = true
 script = ExtResource("10_jnabu")
 mind = 20
 body = 20
 spirit = 20
 
-[sub_resource type="Resource" id="Resource_tmpw0"]
+[sub_resource type="Resource" id="Resource_2wfbn"]
 resource_local_to_scene = true
 script = ExtResource("10_jnabu")
 mind = 20
@@ -245,13 +245,13 @@ script = ExtResource("3_6w8ba")
 
 [node name="BasicHero" parent="." instance=ExtResource("7_nesc8")]
 position = Vector2(470.503, 333.799)
-max_stats = SubResource("Resource_psjuh")
-current_stats = SubResource("Resource_1my26")
+max_stats = SubResource("Resource_4h1k5")
+current_stats = SubResource("Resource_1gehp")
 
 [node name="BasicHero2" parent="." instance=ExtResource("7_nesc8")]
 position = Vector2(471, 374)
-max_stats = SubResource("Resource_m0jgi")
-current_stats = SubResource("Resource_tmpw0")
+max_stats = SubResource("Resource_ukf23")
+current_stats = SubResource("Resource_2wfbn")
 
 [node name="GridDebug" type="Label" parent="."]
 visible = false

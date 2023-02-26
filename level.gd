@@ -137,9 +137,17 @@ func point_weight(point: Vector2i) -> float:
 
 
 func get_unit_in(point: Vector2i) -> Node2D:
+	return _node_at_point(point, 1)
+
+
+func get_item_in(point: Vector2i) -> Node2D:
+	return _node_at_point(point, 2)
+
+
+func _node_at_point(point: Vector2i, layer: int) -> Node2D:
 	var interceptor_point = PhysicsPointQueryParameters2D.new()
 	interceptor_point.position = map_to_local(point)
-	interceptor_point.collision_mask = 1
+	interceptor_point.collision_mask = layer
 	var colliders := space_state.intersect_point(interceptor_point)
 	return colliders[0]["collider"] if !colliders.is_empty() else null
 

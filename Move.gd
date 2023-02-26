@@ -58,6 +58,7 @@ func _on_step_timer_timeout() -> void:
 		$StepTimer.stop()
 		var grid_pos = grid.local_to_map(grid.to_local(character.global_position))
 		continue_mark(grid_pos)
+		character.trigger_pickup()
 		return
 		
 	var next_step = current_path.pop_front() as Vector2i

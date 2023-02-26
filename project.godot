@@ -65,3 +65,4 @@ RMB={
 [layer_names]
 
 2d_physics/layer_1="ray_occluder"
+2d_physics/layer_2="item_layer"

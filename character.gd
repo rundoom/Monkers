@@ -8,6 +8,8 @@ class_name Character
 @onready var occluder := $PositionPresenter
 @onready var effects := $EffectPool
 
+var pick_up_dialog := preload("res://pick_up_dialog.tscn")
+
 
 signal multiplier_changed(val)
 var abilities_at_turn := 0:
@@ -98,6 +100,17 @@ func start_turn():
 	for effect in $EffectPool.get_children():
 		effect.apply_effect()
 	abilities_at_turn = 0
+
+
+func trigger_pickup():
+	var item = grid.get_item_in(grid.local_to_map(grid.to_local(global_position)))
+	if item != null:
+		var pick_up_prompt = pick_up_dialog.instantiate()
+		pick_up_prompt.item_name = item.owner.item_name
+		$UILayer.add_child(pick_up_prompt)
+		var is_picked = await pick_up_prompt.picked
+		if is_picked:
+			item.owner.reparent($ItemPool)
 
 
 func fibonacci(n):

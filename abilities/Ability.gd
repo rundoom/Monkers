@@ -1,9 +1,8 @@
-extends Node2D
+extends CharacterAttacheble
 class_name Ability
 
 
 @onready var grid = get_tree().get_first_node_in_group("grid") as Grid
-var character: Character
 var current_mouse_to_grid: Vector2i
 @export var ability_range: int
 
@@ -30,6 +29,11 @@ func init_ability(point: Vector2i) -> bool:
 	mark(point, character.occluder)
 	return true
 
+
+func set_on_character(character: Character):
+	self.character = character
+	owner = character
+		
 
 func premark_path(_target_pos: Vector2i) -> void:
 	pass

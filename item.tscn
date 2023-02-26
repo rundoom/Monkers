@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://jcc6a8vrfggt"]
+
+[ext_resource type="Script" path="res://items/item.gd" id="1_8dlkr"]
+[ext_resource type="Texture2D" uid="uid://cjiri0bieij0p" path="res://items/urizen-onebit-tileset.png" id="1_vxaiv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pc6e1"]
+atlas = ExtResource("1_vxaiv")
+region = Rect2(482, 300, 12, 12)
+
+[node name="Item" type="Node2D" groups=["item"]]
+script = ExtResource("1_8dlkr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_pc6e1")
+
+[node name="PositionPresenter" type="StaticBody2D" parent="."]
+process_mode = 3
+z_index = 1
+z_as_relative = false
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PositionPresenter"]
+polygon = PackedVector2Array(-8, 14, 8, 14, 16, 0, 8, -14, -8, -14, -16, 0)

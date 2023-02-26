@@ -1,10 +1,8 @@
-extends Node2D
+extends CharacterAttacheble
 class_name Effect
 
 
-var character: Character
 @export var duration: int
-
 @export var stats_changed: StatHolder
 
 

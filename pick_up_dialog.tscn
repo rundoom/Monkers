@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://buqq31b2lhma6"]
+
+[ext_resource type="Script" path="res://PickUpDialog.gd" id="1_ju4x4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sqevo"]
+font_size = 80
+outline_size = 40
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PickUpDialog" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ju4x4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 512.021
+offset_top = 408.0
+offset_right = 1291.02
+offset_bottom = 586.0
+text = "Pick up {0}?"
+label_settings = SubResource("LabelSettings_sqevo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 677.316
+offset_top = 589.337
+offset_right = 1138.32
+offset_bottom = 671.337
+alignment = 1
+
+[node name="Yes" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Yes"
+
+[node name="No" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
+[connection signal="pressed" from="HBoxContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="HBoxContainer/No" to="." method="_on_no_pressed"]
